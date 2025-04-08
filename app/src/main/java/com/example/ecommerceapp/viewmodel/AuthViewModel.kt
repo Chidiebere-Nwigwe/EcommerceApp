@@ -33,19 +33,13 @@ class AuthViewModel : ViewModel(){
         }
     }
 
-    fun login(email: String, password: String){
-
-        if(email.isEmpty() || password.isEmpty()){
-            _authState.value = AuthState.Error("Email or password can't be empty")
-            return
-        }
-        _authState.value = AuthState.Loading
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener{ task->
+    fun login(email: String, password: String, onResult: (Boolean,String?)-> Unit){
+        auth.signInWithEmailAndPassword(email,password)
+            .addOnCompleteListener(){ task->
                 if(task.isSuccessful){
-                    _authState.value = AuthState.Authenticated
+                    onResult(true, null)
                 }else{
-                    _authState.value = AuthState.Error(task.exception?.message?:"Something went wrong")
+                    onResult(false, task.exception?.localizedMessage)
                 }
             }
     }
