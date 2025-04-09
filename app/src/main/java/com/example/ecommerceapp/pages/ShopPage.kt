@@ -15,6 +15,6 @@ fun ShopPage(modifier: Modifier = Modifier){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        Text(text="Shop Page")
+        Text(text="Shopping Page")
     }
 }
