@@ -13,7 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ecommerceapp.components.BannerView
+//import com.example.ecommerceapp.components.BannerView
+import com.example.ecommerceapp.components.NewBannerView
 import com.example.ecommerceapp.components.HeaderView
 
 @Composable
@@ -21,17 +22,12 @@ fun HomePage(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+//            .padding(16.dp)
     ) {
-        // Header: Logo + Icons
-        HeaderView(modifier)
+        // Header: Logo + Icons And Banner Image
+        HeaderAndBanner()
 
-        Spacer(modifier = Modifier.height(2.dp))
-
-        // Banner: Image Carousel
-        BannerView(modifier = Modifier.height(180.dp))
-
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Categories title
         Text(
