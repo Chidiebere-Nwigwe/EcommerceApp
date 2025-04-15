@@ -93,7 +93,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController : NavController){
 fun ContentScreen(modifier: Modifier = Modifier, selected: Int){
     when(selected){
         0-> HomePage(modifier)
-        1-> ShopPage(modifier)
+        1-> ShopPage()
         2-> CouponPage(modifier)
         3-> WishlistPage(modifier)
         4-> ProfilePage(modifier)
