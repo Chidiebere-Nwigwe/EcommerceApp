@@ -28,6 +28,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+//import com.example.ecommerceapp.components.BannerView
+import com.example.ecommerceapp.components.NewBannerView
+import com.example.ecommerceapp.components.HeaderView
 import com.example.ecommerceapp.pages.CouponPage
 import com.example.ecommerceapp.pages.HomePage
 import com.example.ecommerceapp.pages.ProfilePage
@@ -47,12 +50,11 @@ fun HomeScreen(modifier: Modifier = Modifier, navController : NavController){
     )
 
     val gradient = Brush.linearGradient(
-        colors = listOf(Color(0xFFF3AD9D), Color(0xFF8D645B)) // Apply your hex colors here
+        colors = listOf(Color(0xFFF3AD9D), Color(0xFF8D645B))
     )
 
     var selected by remember{ mutableStateOf(0) }
     Scaffold(
-
         bottomBar = {
             NavigationBar {
 
@@ -79,24 +81,26 @@ fun HomeScreen(modifier: Modifier = Modifier, navController : NavController){
                             selectedTextColor = Color(0xFF8D645B), // Text color when selected
                             unselectedTextColor = Color.Black // Text color when not selected
                         )
-
                     )
                 }
             }
         }
-    ){
-        ContentScreen(modifier = modifier.padding(it), selected)
+    ){innerPadding ->
+        ContentScreen(modifier = modifier.padding(bottom = innerPadding.calculateBottomPadding()),
+            selected = selected,
+            navController = navController
+        )
     }
 }
 
 @Composable
-fun ContentScreen(modifier: Modifier = Modifier, selected: Int){
+fun ContentScreen(modifier: Modifier = Modifier, selected: Int, navController: NavController){
     when(selected){
         0-> HomePage(modifier)
-        1-> ShopPage()
+        1-> ShopPage(modifier)
         2-> CouponPage(modifier)
         3-> WishlistPage(modifier)
-        4-> ProfilePage(modifier)
+        4-> ProfilePage(modifier, navController)
     }
 
 }
@@ -105,28 +109,3 @@ data class NavItem(
     val label : String,
     val icon : ImageVector
 )
-
-//@Composable
-//fun HomePageContent(modifier: Modifier = Modifier){
-//    Column(
-//        modifier = modifier.fillMaxSize()
-//            .padding(16.dp)
-//    ) {
-//        HeaderView(modifier)
-//        BannerView(modifier)
-//    }
-//}
-
-
-//        Button(
-//            onClick = {
-//                Firebase.auth.signOut()
-//                navController.navigate("auth"){
-//                    popUpTo("home"){
-//                        inclusive = true
-//                    }
-//                }
-//            }
-//        ) {
-//            Text(text = "Log out")
-//        }

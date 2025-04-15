@@ -25,35 +25,33 @@ import com.google.firebase.firestore.firestore
 
 @Composable
 fun HeaderView(modifier: Modifier = Modifier) {
-    var name by remember{ mutableStateOf("") }
+//    var name by remember{ mutableStateOf("") }
 
-    LaunchedEffect(Unit) {
-        Firebase.firestore.collection("users")
-            .document(FirebaseAuth.getInstance().currentUser?.uid!!)
-            .get().addOnCompleteListener(){
-                name = it.result.get("email").toString()
-            }
-    }
-    Row{
-        Column {
+    Row(modifier = modifier) {
+        // Left side: Welcome message and email
+        androidx.compose.foundation.layout.Column {
             Text(
                 text = "Welcome Back",
+                style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Normal)
             )
             Text(
-                text = name,
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                text = "test@gmail.com",
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
             )
         }
-        Spacer(modifier.weight(1f))
-        IconButton(onClick = { /*TODO*/}) {
-            Icon(imageVector = Icons.Default.Notifications, contentDescription = "Notification")
+        Spacer(modifier = Modifier.weight(1f))
+        // Right side: Icons
+        IconButton(onClick = { /* Handle bell click */ }) {
+            Icon(
+                imageVector = Icons.Default.Notifications,
+                contentDescription = "Notifications"
+            )
         }
-        IconButton(onClick = { /*TODO*/}) {
-            Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Cart")
+        IconButton(onClick = { /* Handle cart click */ }) {
+            Icon(
+                imageVector = Icons.Default.ShoppingCart,
+                contentDescription = "Cart"
+            )
         }
     }
-
 }
