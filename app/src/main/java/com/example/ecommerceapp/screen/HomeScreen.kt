@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 //import com.example.ecommerceapp.components.BannerView
 import com.example.ecommerceapp.components.NewBannerView
@@ -97,7 +98,11 @@ fun HomeScreen(modifier: Modifier = Modifier, navController : NavController){
 fun ContentScreen(modifier: Modifier = Modifier, selected: Int, navController: NavController){
     when(selected){
         0-> HomePage(modifier)
-        1-> ShopPage(modifier)
+        1 -> ShopPage(
+            viewModel = viewModel(),
+            cartViewModel = viewModel(),
+            navController = navController
+        )
         2-> CouponPage(modifier)
         3-> WishlistPage(modifier)
         4-> ProfilePage(modifier, navController)
