@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+
 //import com.example.ecommerceapp.components.BannerView
 import com.example.ecommerceapp.components.NewBannerView
 import com.example.ecommerceapp.components.HeaderView
@@ -25,10 +26,11 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, select
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+//            .padding(16.dp)
     ) {
         // Header: Logo + Icons And Banner Image
         HeaderAndBanner(modifier, navController, selectedTab)
+
 
         Spacer(modifier = Modifier.height(16.dp))
 

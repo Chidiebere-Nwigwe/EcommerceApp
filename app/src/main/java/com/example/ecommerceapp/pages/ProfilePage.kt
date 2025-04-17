@@ -1,5 +1,4 @@
 
-
 package com.example.ecommerceapp.pages
 
 import androidx.compose.foundation.Image
@@ -28,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 
+
 @Composable
 fun ProfilePage(
     modifier: Modifier = Modifier,
@@ -42,6 +42,7 @@ fun ProfilePage(
                 name = it.result.get("email").toString()
             }
     }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -66,6 +67,7 @@ fun ProfilePage(
 
         Text(
             text = name,
+
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             modifier = Modifier.padding(bottom = 24.dp)

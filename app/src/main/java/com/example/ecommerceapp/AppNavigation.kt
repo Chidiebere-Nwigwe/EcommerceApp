@@ -102,6 +102,8 @@
 //}
 package com.example.ecommerceapp
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -186,6 +188,7 @@ fun AppNavigation(
             CartPage(cartViewModel = cartViewModel, navController = navController)
         }
 
+
         // Checkout Page
         composable("checkout") {
             CheckoutPage(navController = navController)
@@ -202,3 +205,4 @@ fun AppNavigation(
         }
     }
 }
+

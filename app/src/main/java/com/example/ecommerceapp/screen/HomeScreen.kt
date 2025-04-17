@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import com.example.ecommerceapp.pages.*
 import com.example.ecommerceapp.viewmodel.CartViewModel
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
@@ -37,6 +38,7 @@ fun HomeScreen(
 
     var selected by remember { mutableStateOf(0) }
 
+
     Scaffold(
 //        topBar = {
 //            TopAppBar(
@@ -51,6 +53,7 @@ fun HomeScreen(
 //                }
 //            )
 //        },
+
         bottomBar = {
             NavigationBar {
                 navItemList.forEachIndexed { index, navItem ->
@@ -91,6 +94,7 @@ fun HomeScreen(
             selectedTab = selectedTab,
             navController = navController,
             cartViewModel = cartViewModel
+
         )
     }
 }
@@ -100,6 +104,7 @@ fun ContentScreen(
     modifier: Modifier = Modifier,
     selected: Int,
     selectedTab: MutableState<Int>,
+
 
     navController: NavController,
     cartViewModel: CartViewModel

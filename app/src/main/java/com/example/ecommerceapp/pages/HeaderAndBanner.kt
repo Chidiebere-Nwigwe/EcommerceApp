@@ -139,6 +139,7 @@ fun HeaderAndBanner(modifier: Modifier = Modifier, navController: NavController,
                 )
                 Button(
                     onClick = { navController.navigate("shop")},
+
                     shape = RoundedCornerShape(50),
                     contentPadding = PaddingValues(horizontal = 30.dp, vertical = 8.dp),
                     colors = ButtonDefaults.buttonColors(

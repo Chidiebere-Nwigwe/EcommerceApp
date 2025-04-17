@@ -21,6 +21,7 @@ fun NewBannerView(
         contentDescription = "Banner Image",
         contentScale = ContentScale.Crop,
         modifier = Modifier
+
             .fillMaxWidth()
             .height(250.dp)
     )

@@ -47,6 +47,7 @@ fun ProductCard(
                     modifier = Modifier
                         .height(120.dp)
                         .fillMaxWidth()
+
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -54,6 +55,7 @@ fun ProductCard(
                 Text(product.title, fontWeight = FontWeight.Bold, maxLines = 2)
                 Text("$${product.price}", color = Color.Gray)
                 Text("⭐ ${product.rating.rate} (${product.rating.count})", fontSize = 12.sp)
+
             }
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -80,3 +82,4 @@ fun ProductCard(
         }
     }
 }
+
