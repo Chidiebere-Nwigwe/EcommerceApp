@@ -2,7 +2,7 @@ package com.example.ecommerceapp.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -12,11 +12,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
+// Data class to represent a CartItem
+data class CartItem(
+    val id: Int,
+    val name: String,
+    val price: Double,
+    val quantity: Int
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CheckoutPage(navController: NavController) {
+fun CheckoutPage(navController: NavController, selectedItems: List<CartItem>) {
     var address by remember { mutableStateOf("") }
     var coupon by remember { mutableStateOf("") }
+
+    // Calculate Subtotal, Shipping Fee, and Final Price
+    val subtotal = selectedItems.sumOf { it.price * it.quantity }
+    val shippingFee = 5.0 // This can be dynamic based on address or shipping method
+    val finalPrice = subtotal + shippingFee
 
     Scaffold(
         topBar = {
@@ -28,41 +41,7 @@ fun CheckoutPage(navController: NavController) {
                     }
                 }
             )
-        },
-//        bottomBar = {
-//            NavigationBar {
-//                NavigationBarItem(
-//                    selected = false,
-//                    onClick = { navController.navigate("home") },
-//                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-//                    label = { Text("Home") }
-//                )
-//                NavigationBarItem(
-//                    selected = false,
-//                    onClick = { navController.navigate("shop") },
-//                    icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Shop") },
-//                    label = { Text("Shop") }
-//                )
-//                NavigationBarItem(
-//                    selected = false,
-//                    onClick = { navController.navigate("coupon") },
-//                    icon = { Icon(Icons.Default.Star, contentDescription = "Coupon") },
-//                    label = { Text("Coupon") }
-//                )
-//                NavigationBarItem(
-//                    selected = false,
-//                    onClick = { navController.navigate("wishlist") },
-//                    icon = { Icon(Icons.Default.Favorite, contentDescription = "Wishlist") },
-//                    label = { Text("Wishlist") }
-//                )
-//                NavigationBarItem(
-//                    selected = false,
-//                    onClick = { navController.navigate("profile") },
-//                    icon = { Icon(Icons.Default.Person, contentDescription = "Me") },
-//                    label = { Text("Me") }
-//                )
-//            }
-//        }
+        }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -80,8 +59,10 @@ fun CheckoutPage(navController: NavController) {
 
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(12.dp)) {
-                    Text("LOREM IPSUM", fontWeight = FontWeight.Bold)
-                    Text("0 x $0.00")
+                    Text("Selected Items", fontWeight = FontWeight.Bold)
+                    selectedItems.forEach { item ->
+                        Text("${item.name} x${item.quantity} - $${"%.2f".format(item.price * item.quantity)}")
+                    }
                 }
             }
 
@@ -108,9 +89,9 @@ fun CheckoutPage(navController: NavController) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text("Payment Summary", fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(4.dp))
-                RowItem("Sub-total", "$0.00")
-                RowItem("Shipping Fee", "$0.00")
-                RowItem("Final Price", "$0.00", highlight = true)
+                RowItem("Sub-total", "$${"%.2f".format(subtotal)}")
+                RowItem("Shipping Fee", "$${"%.2f".format(shippingFee)}")
+                RowItem("Final Price", "$${"%.2f".format(finalPrice)}", highlight = true)
             }
 
             Spacer(modifier = Modifier.weight(1f))
