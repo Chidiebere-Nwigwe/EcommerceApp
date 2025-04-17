@@ -13,18 +13,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ecommerceapp.components.BannerView
 import com.example.ecommerceapp.components.HeaderView
+import com.example.ecommerceapp.model.Product
+import com.example.ecommerceapp.model.Rating  // ✅ Correct import
 
 @Composable
-fun HomePage(modifier: Modifier = Modifier) {
+fun HomePage(modifier: Modifier = Modifier, navController: NavController)
+ {
+    val dummyProduct = Product(
+        id = 999,
+        title = "Lorem",
+        price = 0.0,
+        description = "Sample item",
+        category = "category",
+        image = "",
+        rating = Rating(0.0, 0) // ✅ Correct usage
+    )
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
         // Header: Logo + Icons
-        HeaderView(modifier)
+        HeaderView(modifier, navController = navController)
 
         Spacer(modifier = Modifier.height(2.dp))
 

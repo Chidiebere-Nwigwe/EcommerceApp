@@ -19,12 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 
 @Composable
-fun HeaderView(modifier: Modifier = Modifier) {
+fun HeaderView(modifier: Modifier = Modifier, navController: NavController) {
     var name by remember{ mutableStateOf("") }
 
     LaunchedEffect(Unit) {
@@ -51,8 +52,11 @@ fun HeaderView(modifier: Modifier = Modifier) {
         IconButton(onClick = { /*TODO*/}) {
             Icon(imageVector = Icons.Default.Notifications, contentDescription = "Notification")
         }
-        IconButton(onClick = { /*TODO*/}) {
-            Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Cart")
+        IconButton(onClick = { navController.navigate("cart") }) {
+            Icon(
+                imageVector = Icons.Default.ShoppingCart,
+                contentDescription = "Go to Cart"
+            )
         }
     }
 
