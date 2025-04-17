@@ -2,6 +2,7 @@ package com.example.ecommerceapp.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CardGiftcard
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -22,12 +23,14 @@ import com.example.ecommerceapp.viewmodel.CartViewModel
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    cartViewModel: CartViewModel = viewModel()
+    cartViewModel: CartViewModel = viewModel(),
+    selectedTab: MutableState<Int>
+
 ) {
     val navItemList = listOf(
         NavItem("Home", Icons.Default.Home),
         NavItem("Shop", Icons.Default.ShoppingCart),
-        NavItem("Coupon", Icons.Default.Home),
+        NavItem("Coupon", Icons.Default.CardGiftcard),
         NavItem("Wishlist", Icons.Default.Favorite),
         NavItem("Me", Icons.Default.Person)
     )
@@ -70,13 +73,22 @@ fun HomeScreen(
                             unselectedTextColor = Color.Black
                         )
                     )
+//                    NavigationBarItem(
+////                        selected = index == selectedTab.value,
+////                        onClick = { selectedTab.value = index },
+//                        selected = index == selected,
+//                        onClick = { selected = index },
+//                        icon = { Icon(navItem.icon, navItem.label) },
+//                        label = { Text(navItem.label) }
+//                    )
                 }
             }
         }
     ) { padding ->
         ContentScreen(
-            modifier = modifier.padding(padding),
+            modifier = Modifier.padding(padding),
             selected = selected,
+            selectedTab = selectedTab,
             navController = navController,
             cartViewModel = cartViewModel
         )
@@ -87,15 +99,17 @@ fun HomeScreen(
 fun ContentScreen(
     modifier: Modifier = Modifier,
     selected: Int,
+    selectedTab: MutableState<Int>,
+
     navController: NavController,
     cartViewModel: CartViewModel
 ) {
     when (selected) {
-        0 -> HomePage(modifier = modifier, navController = navController)
+        0 -> HomePage(modifier = Modifier, navController = navController, selectedTab = selectedTab)
         1 -> ShopPage(navController = navController, cartViewModel = cartViewModel)
         2 -> CouponPage(modifier)
         3 -> WishlistPage(modifier)
-        4 -> ProfilePage(modifier)
+        4 -> ProfilePage(modifier, navController)
     }
 }
 

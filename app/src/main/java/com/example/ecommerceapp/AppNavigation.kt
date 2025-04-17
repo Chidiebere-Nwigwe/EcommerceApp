@@ -104,6 +104,8 @@ package com.example.ecommerceapp
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
@@ -125,9 +127,12 @@ fun AppNavigation(
     val navController = rememberNavController()
     val isLoggedIn = Firebase.auth.currentUser != null
     val firstPage = if (isLoggedIn) "home" else "auth"
+    val selectedTab = rememberSaveable { mutableStateOf(0) }
 
     // Shared CartViewModel
     val cartViewModel: CartViewModel = viewModel()
+
+    val shopViewModel: ShopViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = firstPage) {
 
@@ -139,10 +144,22 @@ fun AppNavigation(
         // Home Navigation
         composable("home") {
             HomeScreen(
-                modifier = modifier,
+                modifier = Modifier,
                 navController = navController,
-                cartViewModel = cartViewModel
+                cartViewModel = cartViewModel,
+                selectedTab = selectedTab
+
             )
+        }
+
+        //Shop Navigation
+        composable("shop"){
+            ShopPage( shopViewModel, cartViewModel = cartViewModel, navController = navController)
+        }
+
+        //Notification Navigation
+        composable("notification"){
+            NotificationPage(navController, selectedTab)
         }
 
         // Product Detail Page
