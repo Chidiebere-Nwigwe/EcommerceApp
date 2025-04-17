@@ -8,6 +8,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,13 +23,26 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ecommerceapp.R
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
+
 
 @Composable
 fun ProfilePage(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
+    var name by remember{ mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        Firebase.firestore.collection("users")
+            .document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            .get().addOnCompleteListener(){
+                name = it.result.get("email").toString()
+            }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -48,7 +66,8 @@ fun ProfilePage(
         )
 
         Text(
-            text = "Guest",
+            text = name,
+
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             modifier = Modifier.padding(bottom = 24.dp)

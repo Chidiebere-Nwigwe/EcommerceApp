@@ -20,7 +20,8 @@ fun NewBannerView(
         painter = painterResource(id = R.drawable.group_93), // Replace with your drawable name
         contentDescription = "Banner Image",
         contentScale = ContentScale.Crop,
-        modifier = modifier
+        modifier = Modifier
+
             .fillMaxWidth()
             .height(250.dp)
     )

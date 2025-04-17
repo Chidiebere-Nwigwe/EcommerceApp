@@ -71,5 +71,3 @@ class CartViewModel : ViewModel() {
         return _cartItems.value.sumOf { it.product.price * it.quantity }
     }
 }
-
-

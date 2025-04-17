@@ -27,7 +27,6 @@ class ShopViewModel : ViewModel() {
     private val _selectedCategory = MutableStateFlow("All")
 
     // ❤️ Favorite product IDs
-
     private val _favorites = MutableStateFlow<Set<Int>>(emptySet())
 
     val favorites: StateFlow<Set<Int>> = _favorites
@@ -59,7 +58,6 @@ class ShopViewModel : ViewModel() {
     }
 
     // ✅ Apply search + category filters
-
     private fun applyFilters() {
 
         val query = _searchQuery.value.lowercase()
@@ -79,7 +77,6 @@ class ShopViewModel : ViewModel() {
     }
 
     // 🌐 Fetch from API
-
     private fun fetchProducts() {
 
         viewModelScope.launch {
@@ -103,18 +100,11 @@ class ShopViewModel : ViewModel() {
     }
 
     // ❤️ Toggle favorite product
-
     fun toggleFavorite(productId: Int) {
-
         _favorites.value = _favorites.value.toMutableSet().apply {
-
             if (contains(productId)) remove(productId)
-
             else add(productId)
-
         }
-
     }
-
 }
 

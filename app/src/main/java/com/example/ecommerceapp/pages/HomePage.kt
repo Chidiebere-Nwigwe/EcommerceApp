@@ -1,3 +1,4 @@
+
 package com.example.ecommerceapp.pages
 
 import androidx.compose.foundation.background
@@ -8,24 +9,28 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+
 //import com.example.ecommerceapp.components.BannerView
 import com.example.ecommerceapp.components.NewBannerView
 import com.example.ecommerceapp.components.HeaderView
 
 @Composable
-fun HomePage(modifier: Modifier = Modifier) {
+fun HomePage(modifier: Modifier = Modifier, navController: NavController, selectedTab: MutableState<Int>) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
 //            .padding(16.dp)
     ) {
         // Header: Logo + Icons And Banner Image
-        HeaderAndBanner()
+        HeaderAndBanner(modifier, navController, selectedTab)
+
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -84,7 +89,7 @@ fun HomePage(modifier: Modifier = Modifier) {
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         // "For You" section
         Row(
