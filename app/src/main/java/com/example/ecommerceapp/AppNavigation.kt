@@ -158,7 +158,18 @@ fun AppNavigation(
         composable("shop"){
             ShopPage( shopViewModel, cartViewModel = cartViewModel, navController = navController)
         }
-
+        //Coupon Navigation
+        composable("coupon"){
+            CouponPage(modifier, navController)
+        }
+        //Wishlist Navigation
+        composable("wishlist"){
+            WishlistPage(modifier, navController)
+        }
+        //Profile Navigation
+        composable("me"){
+            ProfilePage(modifier, navController)
+        }
         //Notification Navigation
         composable("notification"){
             NotificationPage(navController, selectedTab)

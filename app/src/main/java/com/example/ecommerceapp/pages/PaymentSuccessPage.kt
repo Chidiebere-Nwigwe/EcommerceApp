@@ -33,30 +33,31 @@ fun PaymentSuccessPage(navController: NavController) {
                 Button(
                     onClick = { navController.navigate("home") },
                     modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
+                            .fillMaxWidth()
+//                        .height(70.dp)
+                        .padding(bottom = 30.dp)
                 ) {
                     Text(text = "Back to Home")
                 }
 
-                NavigationBar {
-                    val items = listOf(
-                        "home" to Icons.Default.Home,
-                        "shop" to Icons.Default.ShoppingCart,
-                        "coupon" to Icons.Default.Star,
-                        "wishlist" to Icons.Default.Favorite,
-                        "profile" to Icons.Default.Person
-                    )
-
-                    items.forEach { (route, icon) ->
-                        NavigationBarItem(
-                            icon = { Icon(icon, contentDescription = route) },
-                            label = { Text(route.replaceFirstChar { it.uppercase() }) },
-                            selected = false,
-                            onClick = { navController.navigate(route) }
-                        )
-                    }
-                }
+//                NavigationBar {
+//                    val items = listOf(
+//                        "home" to Icons.Default.Home,
+//                        "shop" to Icons.Default.ShoppingCart,
+//                        "coupon" to Icons.Default.Star,
+//                        "wishlist" to Icons.Default.Favorite,
+//                        "profile" to Icons.Default.Person
+//                    )
+//
+//                    items.forEach { (route, icon) ->
+//                        NavigationBarItem(
+//                            icon = { Icon(icon, contentDescription = route) },
+//                            label = { Text(route.replaceFirstChar { it.uppercase() }) },
+//                            selected = false,
+//                            onClick = { navController.navigate(route) }
+//                        )
+//                    }
+//                }
             }
         }
 

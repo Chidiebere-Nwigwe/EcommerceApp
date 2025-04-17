@@ -26,7 +26,7 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, select
     Column(
         modifier = Modifier
             .fillMaxSize()
-//            .padding(16.dp)
+            .padding(16.dp)
     ) {
         // Header: Logo + Icons And Banner Image
         HeaderAndBanner(modifier, navController, selectedTab)

@@ -36,8 +36,10 @@ fun ProductDetailPage(
             CenterAlignedTopAppBar(
                 title = { Text(text = product.title, maxLines = 1) },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
+//                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { navController.navigate("shop") }) {
+
+                    Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back"
                         )

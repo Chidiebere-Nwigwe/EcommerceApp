@@ -29,11 +29,11 @@ fun HomeScreen(
 
 ) {
     val navItemList = listOf(
-        NavItem("Home", Icons.Default.Home),
-        NavItem("Shop", Icons.Default.ShoppingCart),
-        NavItem("Coupon", Icons.Default.CardGiftcard),
-        NavItem("Wishlist", Icons.Default.Favorite),
-        NavItem("Me", Icons.Default.Person)
+        NavItem("Home", Icons.Default.Home, "home"),
+        NavItem("Shop", Icons.Default.ShoppingCart, "shop"),
+        NavItem("Coupon", Icons.Default.CardGiftcard, "coupon"),
+        NavItem("Wishlist", Icons.Default.Favorite, "wishlist"),
+        NavItem("Me", Icons.Default.Person, "me")
     )
 
     var selected by remember { mutableStateOf(0) }
@@ -112,13 +112,14 @@ fun ContentScreen(
     when (selected) {
         0 -> HomePage(modifier = Modifier, navController = navController, selectedTab = selectedTab)
         1 -> ShopPage(navController = navController, cartViewModel = cartViewModel)
-        2 -> CouponPage(modifier)
-        3 -> WishlistPage(modifier)
+        2 -> CouponPage(modifier, navController)
+        3 -> WishlistPage(modifier, navController)
         4 -> ProfilePage(modifier, navController)
     }
 }
 
 data class NavItem(
     val label: String,
-    val icon: ImageVector
+    val icon: ImageVector,
+    val navName: String
 )

@@ -10,10 +10,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.ecommerceapp.screen.NavItem
 import com.example.ecommerceapp.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,13 +27,24 @@ fun CartPage(
     val cartItems by cartViewModel.cartItems.collectAsState()
     val totalPrice by remember { derivedStateOf { cartViewModel.getTotalPrice() } }
 
+    var selected by remember { mutableStateOf(0) }
+
+    val navItemList = listOf(
+        NavItem("Home", Icons.Default.Home, "home"),
+        NavItem("Shop", Icons.Default.ShoppingCart, "shop"),
+        NavItem("Coupon", Icons.Default.CardGiftcard, "coupon"),
+        NavItem("Wishlist", Icons.Default.Favorite, "wishlist"),
+        NavItem("Me", Icons.Default.Person, "me")
+    )
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("My Cart") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+//                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { navController.navigate("shop") }) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
@@ -60,37 +73,63 @@ fun CartPage(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+//                NavigationBar {
+//                    NavigationBarItem(
+//                        selected = false,
+//                        onClick = { navController.navigate("home") },
+//                        icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+//                        label = { Text("Home") }
+//                    )
+//                    NavigationBarItem(
+//                        selected = true,
+//                        onClick = { navController.navigate("shop") },
+//                        icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Shop") },
+//                        label = { Text("Shop") }
+//                    )
+//                    NavigationBarItem(
+//                        selected = false,
+//                        onClick = { /* TODO */ },
+//                        icon = { Icon(Icons.Default.Star, contentDescription = "Coupon") },
+//                        label = { Text("Coupon") }
+//                    )
+//                    NavigationBarItem(
+//                        selected = false,
+//                        onClick = { /* TODO */ },
+//                        icon = { Icon(Icons.Default.Favorite, contentDescription = "Wishlist") },
+//                        label = { Text("Wishlist") }
+//                    )
+//                    NavigationBarItem(
+//                        selected = false,
+//                        onClick = { /* TODO */ },
+//                        icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+//                        label = { Text("Me") }
+//                    )
+//                }
                 NavigationBar {
-                    NavigationBarItem(
-                        selected = false,
-                        onClick = { navController.navigate("home") },
-                        icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-                        label = { Text("Home") }
-                    )
-                    NavigationBarItem(
-                        selected = true,
-                        onClick = { navController.navigate("shop") },
-                        icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Shop") },
-                        label = { Text("Shop") }
-                    )
-                    NavigationBarItem(
-                        selected = false,
-                        onClick = { /* TODO */ },
-                        icon = { Icon(Icons.Default.Star, contentDescription = "Coupon") },
-                        label = { Text("Coupon") }
-                    )
-                    NavigationBarItem(
-                        selected = false,
-                        onClick = { /* TODO */ },
-                        icon = { Icon(Icons.Default.Favorite, contentDescription = "Wishlist") },
-                        label = { Text("Wishlist") }
-                    )
-                    NavigationBarItem(
-                        selected = false,
-                        onClick = { /* TODO */ },
-                        icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-                        label = { Text("Me") }
-                    )
+                    navItemList.forEachIndexed { index, navItem ->
+                        NavigationBarItem(
+                            selected = index == selected,
+                            onClick = {
+                                selected = index
+                                navController.navigate(navItem.navName)
+                            },
+                            icon = {
+                                Icon(
+                                    imageVector = navItem.icon,
+                                    contentDescription = navItem.label,
+                                    tint = if (index == selected) Color(0xFF8D645B) else Color.Black
+                                )
+                            },
+                            label = { Text(navItem.label) },
+                            colors = NavigationBarItemDefaults.colors(
+                                indicatorColor = Color.Transparent,
+                                selectedIconColor = Color.Transparent,
+                                unselectedIconColor = Color.Black,
+                                selectedTextColor = Color(0xFF8D645B),
+                                unselectedTextColor = Color.Black
+                            )
+                        )
+                    }
                 }
             }
         }

@@ -29,40 +29,40 @@ fun CheckoutPage(navController: NavController) {
                 }
             )
         },
-        bottomBar = {
-            NavigationBar {
-                NavigationBarItem(
-                    selected = false,
-                    onClick = { navController.navigate("home") },
-                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-                    label = { Text("Home") }
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = { navController.navigate("shop") },
-                    icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Shop") },
-                    label = { Text("Shop") }
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = { navController.navigate("coupon") },
-                    icon = { Icon(Icons.Default.Star, contentDescription = "Coupon") },
-                    label = { Text("Coupon") }
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = { navController.navigate("wishlist") },
-                    icon = { Icon(Icons.Default.Favorite, contentDescription = "Wishlist") },
-                    label = { Text("Wishlist") }
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = { navController.navigate("profile") },
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Me") },
-                    label = { Text("Me") }
-                )
-            }
-        }
+//        bottomBar = {
+//            NavigationBar {
+//                NavigationBarItem(
+//                    selected = false,
+//                    onClick = { navController.navigate("home") },
+//                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+//                    label = { Text("Home") }
+//                )
+//                NavigationBarItem(
+//                    selected = false,
+//                    onClick = { navController.navigate("shop") },
+//                    icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Shop") },
+//                    label = { Text("Shop") }
+//                )
+//                NavigationBarItem(
+//                    selected = false,
+//                    onClick = { navController.navigate("coupon") },
+//                    icon = { Icon(Icons.Default.Star, contentDescription = "Coupon") },
+//                    label = { Text("Coupon") }
+//                )
+//                NavigationBarItem(
+//                    selected = false,
+//                    onClick = { navController.navigate("wishlist") },
+//                    icon = { Icon(Icons.Default.Favorite, contentDescription = "Wishlist") },
+//                    label = { Text("Wishlist") }
+//                )
+//                NavigationBarItem(
+//                    selected = false,
+//                    onClick = { navController.navigate("profile") },
+//                    icon = { Icon(Icons.Default.Person, contentDescription = "Me") },
+//                    label = { Text("Me") }
+//                )
+//            }
+//        }
     ) { padding ->
         Column(
             modifier = Modifier

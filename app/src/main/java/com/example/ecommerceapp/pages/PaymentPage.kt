@@ -29,7 +29,8 @@ fun PaymentPage(navController: NavController) {
         },
         bottomBar = {
             Column {
-                Column(Modifier.padding(16.dp)) {
+                Column(Modifier.padding(16.dp)
+                    ) {
                     Text("Payment Summary", style = MaterialTheme.typography.titleMedium)
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(
@@ -42,30 +43,33 @@ fun PaymentPage(navController: NavController) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
                         onClick = { navController.navigate("payment_success") },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                                .fillMaxWidth()
+                            .height(70.dp)
+                            .padding(bottom = 15.dp)
                     ) {
                         Text("Pay Now")
                     }
                 }
 
-                NavigationBar {
-                    val items = listOf(
-                        "home" to Icons.Default.Home,
-                        "shop" to Icons.Default.ShoppingCart,
-                        "coupon" to Icons.Default.Star,
-                        "wishlist" to Icons.Default.Favorite,
-                        "profile" to Icons.Default.Person
-                    )
-
-                    items.forEach { (route, icon) ->
-                        NavigationBarItem(
-                            icon = { Icon(icon, contentDescription = route) },
-                            label = { Text(route.capitalize()) },
-                            selected = false,
-                            onClick = { navController.navigate(route) }
-                        )
-                    }
-                }
+//                NavigationBar {
+//                    val items = listOf(
+//                        "home" to Icons.Default.Home,
+//                        "shop" to Icons.Default.ShoppingCart,
+//                        "coupon" to Icons.Default.Star,
+//                        "wishlist" to Icons.Default.Favorite,
+//                        "profile" to Icons.Default.Person
+//                    )
+//
+//                    items.forEach { (route, icon) ->
+//                        NavigationBarItem(
+//                            icon = { Icon(icon, contentDescription = route) },
+//                            label = { Text(route.capitalize()) },
+//                            selected = false,
+//                            onClick = { navController.navigate(route) }
+//                        )
+//                    }
+//                }
             }
         }
     ) { padding ->
