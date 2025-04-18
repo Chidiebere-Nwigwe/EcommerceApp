@@ -14,30 +14,32 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PaymentSuccessPage(navController: NavController) {
+fun PaymentSuccessPage(navController: NavController, finalPrice : String, address: String) {
+    var address = address
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Payment Success") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigate("home") }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-                    }
-                }
-            )
-        },
+//        topBar = {
+//            TopAppBar(
+//                title = { Text("Payment Success") },
+//                navigationIcon = {
+//                    IconButton(onClick = { navController.navigate("home") }) {
+//                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+//                    }
+//                }
+//            )
+//        },
         bottomBar = {
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
-                    onClick = { navController.navigate("home") },
+
+                    onClick = { navController.navigate("notification?finalPrice=${finalPrice}&address=${address}") },
                     modifier = Modifier
                             .fillMaxWidth()
 //                        .height(70.dp)
                         .padding(bottom = 30.dp)
                 ) {
-                    Text(text = "Back to Home")
+                    Text(text = "Continue")
                 }
 
 //                NavigationBar {
@@ -93,7 +95,7 @@ fun PaymentSuccessPage(navController: NavController) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text("Total: $0.00", fontWeight = FontWeight.Bold)
+            Text(finalPrice, fontWeight = FontWeight.Bold)
         }
     }
 }

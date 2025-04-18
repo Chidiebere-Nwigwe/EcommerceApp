@@ -7,15 +7,23 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PaymentPage(navController: NavController) {
+fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: String, address : String) {
     var selectedOption by remember { mutableStateOf("Visa") }
-
+    var updatedFinalPrice = finalPrice;
+    if(coupon=="GARY2025" || coupon=="CHIDI2025" || coupon=="ANTHONY2025"){
+        updatedFinalPrice -= 5;
+    }
+    var address = address;
     Scaffold(
         topBar = {
             TopAppBar(
@@ -38,11 +46,25 @@ fun PaymentPage(navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text("Final Price")
-                        Text("$0.00", fontWeight = FontWeight.Bold)
+             //          Spacer(modifier = Modifier.weight(0.5f))
+                        Text(
+                            finalPrice.toString(),
+                            style = TextStyle(
+                                color = Color.DarkGray, // Set the color to dark gray
+                                textDecoration = TextDecoration.LineThrough // Apply the strikethrough effect
+                            ),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp
+                        )
+
+                        Text(updatedFinalPrice.toString(), fontWeight = FontWeight.Bold)
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
-                        onClick = { navController.navigate("payment_success") },
+
+//                        onClick = { navController.navigate("payment_success") },
+                       onClick = { navController.navigate("payment_success?updatedFinalPrice=${updatedFinalPrice}&address=${address}") },
+
                         modifier = Modifier
                                 .fillMaxWidth()
                             .height(70.dp)
@@ -104,12 +126,12 @@ fun PaymentPage(navController: NavController) {
                     }
                 }
             }
-            OutlinedButton(
-                onClick = { /* Add new card logic */ },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Add new Card")
-            }
+//            OutlinedButton(
+//                onClick = { /* Add new card logic */ },
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
+//                Text("Add new Card")
+//            }
         }
     }
 }
