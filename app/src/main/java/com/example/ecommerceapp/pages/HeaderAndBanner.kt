@@ -1,5 +1,6 @@
 package com.example.ecommerceapp.pages
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -31,7 +33,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -64,6 +71,11 @@ fun HeaderAndBanner(modifier: Modifier = Modifier, navController: NavController,
             .fillMaxWidth()
             .padding(top = 35.dp) // Space above Welcome Back and icons
     ) {
+        Image(
+            modifier = Modifier.size(100.dp),
+            painter = painterResource(R.drawable.group_94),
+            contentDescription = "Logo"
+        )
         // Header Row with "Welcome Back", email, and icons
         Row (
             modifier = Modifier.fillMaxWidth(),
@@ -86,14 +98,27 @@ fun HeaderAndBanner(modifier: Modifier = Modifier, navController: NavController,
 //                IconButton(onClick = {  selectedTab.value = 1  } ) {
 //                IconButton(onClick = {  navController.navigate("notification") } ) {
 //
-//                Icon(imageVector = Icons.Default.Notifications, contentDescription = "Notification")
+//                Icon(
+                //                imageVector = Icons.Default.Notifications,
+                //                contentDescription = "Notification")
 //                }
                 Spacer(modifier = Modifier.width(8.dp))
 
+//                IconButton(onClick = { navController.navigate("cart") }) {
+//                    Icon(
+//                        imageVector = Icons.Default.ShoppingCart,
+//                        contentDescription = "Go to Cart",
+//                    )
+//                }
                 IconButton(onClick = { navController.navigate("cart") }) {
-                    Icon(
+                    GradientIcon(
                         imageVector = Icons.Default.ShoppingCart,
-                        contentDescription = "Go to Cart"
+                        contentDescription = "Go to Cart",
+                        gradientColors = listOf(
+                            Color(0xFFF0AA9B),
+                            Color(0xFF8A6259)
+                        ),
+                        modifier = Modifier.size(24.dp)
                     )
                 }
             }
@@ -154,3 +179,30 @@ fun HeaderAndBanner(modifier: Modifier = Modifier, navController: NavController,
         }
     }
 }
+
+@Composable
+fun GradientIcon(
+    imageVector: ImageVector,
+    contentDescription: String?,
+    gradientColors: List<Color>,
+    modifier: Modifier = Modifier
+) {
+    Icon(
+        imageVector = imageVector,
+        contentDescription = contentDescription,
+        modifier = modifier
+            .graphicsLayer(alpha = 0.99f) // needed to make drawWithCache work right
+            .drawWithCache {
+                val brush = Brush.linearGradient(gradientColors)
+                onDrawWithContent {
+                    drawContent()
+                    drawRect(
+                        brush = brush,
+                        blendMode = BlendMode.SrcAtop
+                    )
+                }
+            },
+        tint = Color.White // base color so gradient blends properly
+    )
+}
+

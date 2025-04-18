@@ -1,10 +1,12 @@
 package com.example.ecommerceapp.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
@@ -17,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.ecommerceapp.model.Product
+import com.example.ecommerceapp.pages.GradientIcon
 
 @Composable
 fun ProductCard(
@@ -32,6 +35,7 @@ fun ProductCard(
         modifier = Modifier
             .fillMaxWidth()
             .height(260.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFD9D9D9)),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
@@ -75,13 +79,23 @@ fun ProductCard(
                     )
                 }
                 IconButton(onClick = onAddToCart) {
-                    Icon(
-                        imageVector = Icons.Outlined.ShoppingCart,
-                        contentDescription = "Add to Cart"
+//                    Icon(
+//                        imageVector = Icons.Outlined.ShoppingCart,
+//                        contentDescription = "Add to Cart"
+//                    )
+                    GradientIcon(
+                        imageVector = Icons.Default.ShoppingCart,
+                        contentDescription = "Go to Cart",
+                        gradientColors = listOf(
+                            Color(0xFFF0AA9B),
+                            Color(0xFF8A6259)
+                        ),
+                        modifier = Modifier.size(22.dp)
                     )
                 }
             }
         }
     }
 }
+
 

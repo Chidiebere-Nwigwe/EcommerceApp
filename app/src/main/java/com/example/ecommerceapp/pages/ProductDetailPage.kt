@@ -10,7 +10,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -18,6 +20,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.ecommerceapp.model.Product
 import com.example.ecommerceapp.viewmodel.CartViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ecommerceapp.R
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,11 +33,14 @@ fun ProductDetailPage(
     var quantity by remember { mutableStateOf(1) }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
-
+//    Column(){
+//
+//    }
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(text = product.title, maxLines = 1) },
+                title = {
+                    Text(text = product.title, maxLines = 1) },
                 navigationIcon = {
 //                    IconButton(onClick = { navController.popBackStack() }) {
                     IconButton(onClick = { navController.navigate("shop") }) {
@@ -51,11 +57,17 @@ fun ProductDetailPage(
             SnackbarHost(hostState = snackbarHostState)
         }
     ) { padding ->
+
         Column(
             modifier = Modifier
                 .padding(padding)
                 .padding(16.dp)
         ) {
+            Image(
+                modifier = Modifier.size(100.dp),
+                painter = painterResource(R.drawable.group_94),
+                contentDescription = "Logo"
+            )
             Image(
                 painter = rememberAsyncImagePainter(product.image),
                 contentDescription = product.title,
@@ -122,7 +134,11 @@ fun ProductDetailPage(
                         snackbarHostState.showSnackbar("Added to cart!")
                     }
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFF27E900),
+                    contentColor = Color.Black
+                )
             ) {
                 Text("Add to Cart")
             }

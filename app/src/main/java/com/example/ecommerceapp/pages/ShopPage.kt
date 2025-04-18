@@ -1,5 +1,6 @@
 package com.example.ecommerceapp.pages
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 
 import androidx.compose.foundation.lazy.LazyRow
@@ -19,9 +20,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.ecommerceapp.R
 import com.example.ecommerceapp.components.ProductCard
 import com.example.ecommerceapp.viewmodel.CartViewModel
 import com.example.ecommerceapp.viewmodel.ShopViewModel
@@ -42,6 +46,18 @@ fun ShopPage(
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
+//    Column(modifier = Modifier.fillMaxSize()) {
+//
+//        // 🖼️ Logo at the top of the page
+//        Image(
+//            painter = painterResource(id = R.drawable.group_94), // Replace with your actual logo resource
+//            contentDescription = "Logo",
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(80.dp) // Adjust the height as needed
+//                .padding(top = 16.dp)
+//        )
+//    }
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
@@ -49,9 +65,14 @@ fun ShopPage(
                 title = { Text("Shop") },
                 actions = {
                     IconButton(onClick = { navController.navigate("cart") }) {
-                        Icon(
+                        GradientIcon(
                             imageVector = Icons.Default.ShoppingCart,
-                            contentDescription = "Cart"
+                            contentDescription = "Go to Cart",
+                            gradientColors = listOf(
+                                Color(0xFFF0AA9B),
+                                Color(0xFF8A6259)
+                            ),
+                            modifier = Modifier.size(24.dp)
                         )
                     }
                 },
@@ -66,12 +87,18 @@ fun ShopPage(
             )
         }
     ) { padding ->
+
         Column(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
+            Image(
+                modifier = Modifier.size(100.dp),
+                painter = painterResource(R.drawable.group_94),
+                contentDescription = "Logo"
+            )
             // 🔍 Search Bar
             OutlinedTextField(
                 value = searchText,
