@@ -261,7 +261,7 @@ fun AppNavigation(
             )
         ) { backStackEntry ->
             val finalPriceString = backStackEntry.arguments?.getString("updatedFinalPrice") ?: "0.0"
-           // val coupon = backStackEntry.arguments?.getString("coupon") ?: ""
+            // val coupon = backStackEntry.arguments?.getString("coupon") ?: ""
 
             val address = backStackEntry.arguments?.getString("address") ?: ""
 
@@ -279,4 +279,3 @@ fun AppNavigation(
 //        }
     }
 }
-

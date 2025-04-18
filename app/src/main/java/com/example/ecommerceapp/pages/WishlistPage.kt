@@ -1,4 +1,3 @@
-
 package com.example.ecommerceapp.pages
 
 import androidx.compose.foundation.Image
