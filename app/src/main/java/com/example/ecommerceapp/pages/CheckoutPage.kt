@@ -1,8 +1,9 @@
+
 package com.example.ecommerceapp.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -11,12 +12,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.ecommerceapp.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CheckoutPage(navController: NavController) {
+fun CheckoutPage(navController: NavController, cartViewModel: CartViewModel) {
     var address by remember { mutableStateOf("") }
     var coupon by remember { mutableStateOf("") }
+
+    val cartItems by cartViewModel.cartItems.collectAsState()
+    val subtotal = cartItems.sumOf { it.product.price * it.quantity }
+    val shippingFee = 5.00
+    val finalPrice = subtotal + shippingFee
 
     Scaffold(
         topBar = {
@@ -29,40 +36,18 @@ fun CheckoutPage(navController: NavController) {
                 }
             )
         },
-//        bottomBar = {
-//            NavigationBar {
-//                NavigationBarItem(
-//                    selected = false,
-//                    onClick = { navController.navigate("home") },
-//                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-//                    label = { Text("Home") }
-//                )
-//                NavigationBarItem(
-//                    selected = false,
-//                    onClick = { navController.navigate("shop") },
-//                    icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Shop") },
-//                    label = { Text("Shop") }
-//                )
-//                NavigationBarItem(
-//                    selected = false,
-//                    onClick = { navController.navigate("coupon") },
-//                    icon = { Icon(Icons.Default.Star, contentDescription = "Coupon") },
-//                    label = { Text("Coupon") }
-//                )
-//                NavigationBarItem(
-//                    selected = false,
-//                    onClick = { navController.navigate("wishlist") },
-//                    icon = { Icon(Icons.Default.Favorite, contentDescription = "Wishlist") },
-//                    label = { Text("Wishlist") }
-//                )
-//                NavigationBarItem(
-//                    selected = false,
-//                    onClick = { navController.navigate("profile") },
-//                    icon = { Icon(Icons.Default.Person, contentDescription = "Me") },
-//                    label = { Text("Me") }
-//                )
-//            }
-//        }
+        bottomBar = {
+            Button(
+//                onClick = { navController.navigate("payment") },
+                onClick = {        navController.navigate("payment?finalPrice=${finalPrice}")
+                },
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+            ) {
+                Text("Continue to Checkout")
+            }
+        }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -80,20 +65,18 @@ fun CheckoutPage(navController: NavController) {
 
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(12.dp)) {
-                    Text("LOREM IPSUM", fontWeight = FontWeight.Bold)
-                    Text("0 x $0.00")
+                    Text("Items: ${cartItems.size}", fontWeight = FontWeight.Bold)
+                    Text("${cartItems.sumOf { it.quantity }} x items")
                 }
             }
 
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 4.dp),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text("Choose Shipping")
-                TextButton(onClick = { /* edit logic */ }) {
+                TextButton(onClick = { /* Edit shipping method */ }) {
                     Text("Edit")
                 }
             }
@@ -108,22 +91,10 @@ fun CheckoutPage(navController: NavController) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text("Payment Summary", fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(4.dp))
-                RowItem("Sub-total", "$0.00")
-                RowItem("Shipping Fee", "$0.00")
-                RowItem("Final Price", "$0.00", highlight = true)
+                RowItem("Sub-total", "$${"%.2f".format(subtotal)}")
+                RowItem("Shipping Fee", "$${"%.2f".format(shippingFee)}")
+                RowItem("Final Price", "$${"%.2f".format(finalPrice)}", highlight = true)
             }
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Button(
-                onClick = { navController.navigate("payment") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text("Continue to Checkout")
-            }
-
         }
     }
 }

@@ -202,13 +202,30 @@ fun AppNavigation(
 
         // Checkout Page
         composable("checkout") {
-            CheckoutPage(navController = navController)
+            CheckoutPage(cartViewModel = cartViewModel, navController = navController)
         }
 
         // Payment Page
-        composable("payment") {
-            PaymentPage(navController = navController)
+//        composable("payment") {
+//            PaymentPage(navController = navController)
+//        }
+
+        composable(
+            route = "payment?finalPrice={finalPrice}",
+            arguments = listOf(
+                navArgument("finalPrice") { type = NavType.StringType } // Use StringType
+            )
+        ) { backStackEntry ->
+            val finalPriceString = backStackEntry.arguments?.getString("finalPrice") ?: "0.0"
+            val finalPrice = finalPriceString.toDouble() // Convert the String to Double
+
+            // Pass the finalPrice to PaymentPage
+            PaymentPage(
+                navController = navController,
+                finalPrice = finalPrice
+            )
         }
+
 
         // Payment Success Page
         composable("payment_success") {

@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PaymentPage(navController: NavController) {
+fun PaymentPage(navController: NavController,  finalPrice: Double) {
     var selectedOption by remember { mutableStateOf("Visa") }
 
     Scaffold(
@@ -38,7 +38,7 @@ fun PaymentPage(navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text("Final Price")
-                        Text("$0.00", fontWeight = FontWeight.Bold)
+                        Text(finalPrice.toString(), fontWeight = FontWeight.Bold)
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
