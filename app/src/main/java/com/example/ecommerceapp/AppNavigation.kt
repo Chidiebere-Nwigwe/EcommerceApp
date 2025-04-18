@@ -171,9 +171,29 @@ fun AppNavigation(
             ProfilePage(modifier, navController)
         }
         //Notification Navigation
-        composable("notification"){
-            NotificationPage(navController, selectedTab)
+//        composable("notification") {
+//            NotificationPage(navController, selectedTab)
+//        }
+        composable(
+            route = "notification?finalPrice={finalPrice}&address={address}",
+            arguments = listOf(
+                navArgument("finalPrice") { type = NavType.StringType },
+                navArgument("address") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val finalPriceString = backStackEntry.arguments?.getString("finalPrice")
+            val address = backStackEntry.arguments?.getString("address")
+
+            val finalPrice = finalPriceString?.toDoubleOrNull()
+
+            NotificationPage(
+                navController = navController,
+                selectedTab = selectedTab,
+                finalPrice = finalPrice,
+                address = address
+            )
         }
+
 
         // Product Detail Page
         composable(
@@ -211,42 +231,45 @@ fun AppNavigation(
 //        }
 
         composable(
-            route = "payment?finalPrice={finalPrice}&coupon={coupon}",
+            route = "payment?finalPrice={finalPrice}&coupon={coupon}&address={address}",
             arguments = listOf(
                 navArgument("finalPrice") { type = NavType.StringType },  // finalPrice as String
-                navArgument("coupon") { type = NavType.StringType }  // coupon as String
+                navArgument("coupon") { type = NavType.StringType }, // coupon as String
+                navArgument("address") { type = NavType.StringType }  // address as String
+
             )
         ) { backStackEntry ->
             val finalPriceString = backStackEntry.arguments?.getString("finalPrice") ?: "0.0"
             val coupon = backStackEntry.arguments?.getString("coupon") ?: ""
-
+            val address = backStackEntry.arguments?.getString("address") ?: ""
             val finalPrice = finalPriceString.toDouble() // Convert to Double
 
             // Pass the finalPrice and coupon to PaymentPage
             PaymentPage(
                 navController = navController,
                 finalPrice = finalPrice,
-                coupon = coupon
+                coupon = coupon,
+                address = address
             )
         }
 
         composable(
-
-            route = "payment_success?updatedFinalPrice={updatedFinalPrice}",
+            route = "payment_success?updatedFinalPrice={updatedFinalPrice}&address={address}",
             arguments = listOf(
                 navArgument("updatedFinalPrice") { type = NavType.StringType },  // finalPrice as String
-               // navArgument("coupon") { type = NavType.StringType }  // coupon as String
+                navArgument("address") { type = NavType.StringType }  // address as String
             )
         ) { backStackEntry ->
             val finalPriceString = backStackEntry.arguments?.getString("updatedFinalPrice") ?: "0.0"
            // val coupon = backStackEntry.arguments?.getString("coupon") ?: ""
 
-           // val finalPrice = finalPriceString.toDouble() // Convert to Double
+            val address = backStackEntry.arguments?.getString("address") ?: ""
 
             // Pass the finalPrice and coupon to PaymentPage
             PaymentSuccessPage(
                 navController = navController,
                 finalPrice = finalPriceString,
+                address= address
             )
         }
 

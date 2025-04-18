@@ -17,12 +17,13 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: String) {
+fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: String, address : String) {
     var selectedOption by remember { mutableStateOf("Visa") }
     var updatedFinalPrice = finalPrice;
     if(coupon=="GARY2025"){
         updatedFinalPrice -= 5;
     }
+    var address = address;
     Scaffold(
         topBar = {
             TopAppBar(
@@ -62,7 +63,7 @@ fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: Strin
                     Button(
 
 //                        onClick = { navController.navigate("payment_success") },
-                       onClick = { navController.navigate("payment_success?updatedFinalPrice=${updatedFinalPrice}") },
+                       onClick = { navController.navigate("payment_success?updatedFinalPrice=${updatedFinalPrice}&address=${address}") },
 
                         modifier = Modifier
                                 .fillMaxWidth()

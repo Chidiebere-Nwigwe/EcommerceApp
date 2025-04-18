@@ -39,7 +39,9 @@ fun CheckoutPage(navController: NavController, cartViewModel: CartViewModel) {
         bottomBar = {
             Button(
 //                onClick = { navController.navigate("payment") },
-                onClick = {  navController.navigate("payment?finalPrice=${finalPrice}&coupon=${coupon}")
+//                onClick = {  navController.navigate("payment?finalPrice=${finalPrice}&coupon=${coupon}")
+                onClick = {  navController.navigate("payment?finalPrice=${finalPrice}&coupon=${coupon}&address=${address}")
+
                 },
                 modifier = Modifier
                     .padding(16.dp)

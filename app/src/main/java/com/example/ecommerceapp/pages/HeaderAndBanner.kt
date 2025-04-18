@@ -84,10 +84,10 @@ fun HeaderAndBanner(modifier: Modifier = Modifier, navController: NavController,
             }
             Row {
 //                IconButton(onClick = {  selectedTab.value = 1  } ) {
-                IconButton(onClick = {  navController.navigate("notification") } ) {
-
-                Icon(imageVector = Icons.Default.Notifications, contentDescription = "Notification")
-                }
+//                IconButton(onClick = {  navController.navigate("notification") } ) {
+//
+//                Icon(imageVector = Icons.Default.Notifications, contentDescription = "Notification")
+//                }
                 Spacer(modifier = Modifier.width(8.dp))
 
                 IconButton(onClick = { navController.navigate("cart") }) {
