@@ -49,7 +49,10 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.material:material-icons-extended")
+
+
     implementation(libs.androidx.navigation.compose)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
@@ -66,6 +69,9 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //spalsh screen dependency
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
 
 }

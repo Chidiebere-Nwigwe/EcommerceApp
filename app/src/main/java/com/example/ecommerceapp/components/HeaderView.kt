@@ -19,13 +19,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 
 @Composable
-fun HeaderView(modifier: Modifier = Modifier) {
-//    var name by remember{ mutableStateOf("") }
+fun HeaderView(modifier: Modifier = Modifier, navController: NavController) {
+    var name by remember{ mutableStateOf("") }
+
 
     Row(modifier = modifier) {
         // Left side: Welcome message and email
@@ -47,10 +49,11 @@ fun HeaderView(modifier: Modifier = Modifier) {
                 contentDescription = "Notifications"
             )
         }
-        IconButton(onClick = { /* Handle cart click */ }) {
+        IconButton(onClick = { navController.navigate("cart") }) {
             Icon(
                 imageVector = Icons.Default.ShoppingCart,
-                contentDescription = "Cart"
+                contentDescription = "Go to Cart"
+
             )
         }
     }

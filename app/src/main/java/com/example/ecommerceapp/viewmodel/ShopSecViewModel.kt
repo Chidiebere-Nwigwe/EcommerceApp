@@ -1,21 +1,14 @@
 package com.example.ecommerceapp.viewmodel
 
 import androidx.lifecycle.ViewModel
-
 import androidx.lifecycle.viewModelScope
-
 import com.example.ecommerceapp.api.RetrofitInstance
-
 import com.example.ecommerceapp.model.Product
-
 import kotlinx.coroutines.flow.MutableStateFlow
-
 import kotlinx.coroutines.flow.StateFlow
-
 import kotlinx.coroutines.launch
 
-class ShopViewModel : ViewModel() {
-
+class ShopSecViewModel: ViewModel()  {
     private val _allProducts = MutableStateFlow<List<Product>>(emptyList())
 
     private val _filteredProducts = MutableStateFlow<List<Product>>(emptyList())
@@ -33,7 +26,7 @@ class ShopViewModel : ViewModel() {
 
     init {
 
-        fetchProducts()
+        fetchThreeProducts()
 
     }
 
@@ -99,6 +92,21 @@ class ShopViewModel : ViewModel() {
 
     }
 
+    private fun fetchThreeProducts() {
+        viewModelScope.launch {
+            try {
+                val result = RetrofitInstance.api.getProducts()
+
+                // Take the first 3 products if there are at least 3 products
+                _allProducts.value = result
+                _filteredProducts.value = result.take(3)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+
     // ❤️ Toggle favorite product
     fun toggleFavorite(productId: Int) {
         _favorites.value = _favorites.value.toMutableSet().apply {
@@ -107,4 +115,3 @@ class ShopViewModel : ViewModel() {
         }
     }
 }
-

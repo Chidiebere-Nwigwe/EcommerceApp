@@ -3,31 +3,56 @@ package com.example.ecommerceapp.pages
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-//import com.example.ecommerceapp.components.BannerView
-import com.example.ecommerceapp.components.NewBannerView
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.ecommerceapp.components.HeaderView
+import com.example.ecommerceapp.components.ProductCard
+import com.example.ecommerceapp.viewmodel.CartViewModel
+import com.example.ecommerceapp.viewmodel.ShopSecViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun HomePage(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-//            .padding(16.dp)
-    ) {
-        // Header: Logo + Icons And Banner Image
-        HeaderAndBanner()
+fun HomePage(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    selectedTab: MutableState<Int>
+) {
+    val viewModel: ShopSecViewModel = viewModel()
+    val products by viewModel.filteredProducts.collectAsState()
+    val favorites by viewModel.favorites.collectAsState()
+    val cartViewModel: CartViewModel = viewModel()
 
-        Spacer(modifier = Modifier.height(16.dp))
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+    val categories = listOf("All", "men's clothing", "jewelery", "electronics", "women's clothing")
+    val selectedCategory = remember { mutableStateOf("All") }
+
+    // Enable vertical scrolling for the whole page
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        // Header + Banner
+        HeaderAndBanner(modifier, navController, selectedTab)
 
         // Categories title
         Text(
@@ -38,77 +63,127 @@ fun HomePage(modifier: Modifier = Modifier) {
             )
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
-
-        // Category tabs (All, Men, Women, etc.)
-        val categories = listOf("All", "Men", "Women", "Electronics", "Jewelry")
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            items(categories) { category ->
-                Text(
-                    text = category,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = if (category == "All") FontWeight.Bold else FontWeight.Normal
+        // Category Chips
+        LazyRow {
+            items(categories.size) { index ->
+                val category = categories[index]
+                AssistChip(
+                    onClick = {
+                        selectedCategory.value = category
+                        viewModel.updateCategory(category)
+                    },
+                    label = { Text(category) },
+                    modifier = Modifier.padding(end = 8.dp)
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        // Horizontal product list
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(5) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.width(100.dp)
-                ) {
-                    Box(
+        // Category Products Horizontal List
+        Text(
+            text = "${selectedCategory.value} Products",
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+        )
+
+        if (products.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                items(products) { product ->
+                    ProductCard(
+                        product = product,
+                        isFavorite = favorites.contains(product.id),
+                        onToggleFavorite = { viewModel.toggleFavorite(product.id) },
+                        onClick = {
+                            navController.navigate("product_detail/${product.id}")
+                        },
+                        onAddToCart = {
+                            cartViewModel.addToCart(product)
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar("${product.title} added to cart")
+                            }
+                        },
                         modifier = Modifier
-                            .size(100.dp)
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
-                    ) {
-                        // Placeholder for product image
-                    }
-                    Text("Lorem", fontWeight = FontWeight.SemiBold)
-                    Text("$0.00")
-                    IconButton(onClick = { }) {
-                        Icon(
-                            imageVector = Icons.Default.ShoppingCart,
-                            contentDescription = "Add to cart"
-                        )
-                    }
+                            .width(110.dp)   // Same width as in 3-column grid
+                            .height(200.dp)  // Same height as in 3-column grid
+                    )
                 }
             }
+
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        // "For You" Section
+        Spacer(modifier = Modifier.height(24.dp))
 
-        // "For You" section
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text("For You", style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
-            Text("See all", style = MaterialTheme.typography.labelMedium)
-        }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        // Placeholder for "For You" list
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(3) {
-                Box(
-                    modifier = Modifier
-                        .size(120.dp)
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                )
+            OutlinedButton(onClick = { navController.navigate("shop") }) {
+                Text("See all", style = MaterialTheme.typography.labelMedium)
             }
         }
+
+        // 3-column Product Grid
+        if (products.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = 2000.dp),
+                contentPadding = PaddingValues(
+                    start = 8.dp,
+                    end = 8.dp,
+                    top = 8.dp,
+                    bottom = 32.dp
+                ),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(products) { product ->
+                    ProductCard(
+                        product = product,
+                        isFavorite = favorites.contains(product.id),
+                        onToggleFavorite = { viewModel.toggleFavorite(product.id) },
+                        onClick = {
+                            navController.navigate("product_detail/${product.id}")
+                        },
+                        onAddToCart = {
+                            cartViewModel.addToCart(product)
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar("${product.title} added to cart")
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(32.dp)) // Bottom padding
     }
 }
