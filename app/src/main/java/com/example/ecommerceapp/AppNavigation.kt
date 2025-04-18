@@ -211,26 +211,49 @@ fun AppNavigation(
 //        }
 
         composable(
-            route = "payment?finalPrice={finalPrice}",
+            route = "payment?finalPrice={finalPrice}&coupon={coupon}",
             arguments = listOf(
-                navArgument("finalPrice") { type = NavType.StringType } // Use StringType
+                navArgument("finalPrice") { type = NavType.StringType },  // finalPrice as String
+                navArgument("coupon") { type = NavType.StringType }  // coupon as String
             )
         ) { backStackEntry ->
             val finalPriceString = backStackEntry.arguments?.getString("finalPrice") ?: "0.0"
-            val finalPrice = finalPriceString.toDouble() // Convert the String to Double
+            val coupon = backStackEntry.arguments?.getString("coupon") ?: ""
 
-            // Pass the finalPrice to PaymentPage
+            val finalPrice = finalPriceString.toDouble() // Convert to Double
+
+            // Pass the finalPrice and coupon to PaymentPage
             PaymentPage(
                 navController = navController,
-                finalPrice = finalPrice
+                finalPrice = finalPrice,
+                coupon = coupon
             )
         }
 
+        composable(
+
+            route = "payment_success?updatedFinalPrice={updatedFinalPrice}",
+            arguments = listOf(
+                navArgument("updatedFinalPrice") { type = NavType.StringType },  // finalPrice as String
+               // navArgument("coupon") { type = NavType.StringType }  // coupon as String
+            )
+        ) { backStackEntry ->
+            val finalPriceString = backStackEntry.arguments?.getString("updatedFinalPrice") ?: "0.0"
+           // val coupon = backStackEntry.arguments?.getString("coupon") ?: ""
+
+           // val finalPrice = finalPriceString.toDouble() // Convert to Double
+
+            // Pass the finalPrice and coupon to PaymentPage
+            PaymentSuccessPage(
+                navController = navController,
+                finalPrice = finalPriceString,
+            )
+        }
 
         // Payment Success Page
-        composable("payment_success") {
-            PaymentSuccessPage(navController = navController)
-        }
+//        composable("payment_success") {
+//            PaymentSuccessPage(navController = navController)
+//        }
     }
 }
 

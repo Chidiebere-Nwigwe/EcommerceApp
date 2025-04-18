@@ -14,7 +14,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PaymentSuccessPage(navController: NavController) {
+fun PaymentSuccessPage(navController: NavController, finalPrice : String) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -93,7 +93,7 @@ fun PaymentSuccessPage(navController: NavController) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text("Total: $0.00", fontWeight = FontWeight.Bold)
+            Text(finalPrice, fontWeight = FontWeight.Bold)
         }
     }
 }
