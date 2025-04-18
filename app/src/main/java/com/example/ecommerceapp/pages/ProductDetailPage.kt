@@ -23,10 +23,16 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailPage(
-    product: Product,
+    product: Product?,
     navController: NavController,
     cartViewModel: CartViewModel = viewModel()
 ) {
+    if (product == null) {
+        // Show a loading state or error message
+        Text("Product not found", style = MaterialTheme.typography.titleLarge)
+        return
+    }
+
     var quantity by remember { mutableStateOf(1) }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -36,10 +42,8 @@ fun ProductDetailPage(
             CenterAlignedTopAppBar(
                 title = { Text(text = product.title, maxLines = 1) },
                 navigationIcon = {
-//                    IconButton(onClick = { navController.popBackStack() }) {
-                    IconButton(onClick = { navController.navigate("shop") }) {
-
-                    Icon(
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back"
                         )

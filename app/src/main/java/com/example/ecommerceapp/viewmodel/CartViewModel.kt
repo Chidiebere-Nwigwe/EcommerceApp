@@ -12,6 +12,18 @@ class CartViewModel : ViewModel() {
     private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
     val cartItems: StateFlow<List<CartItem>> = _cartItems
 
+    // ✅ New: selectedItems for checkout
+    private val _selectedItems = MutableStateFlow<List<CartItem>>(emptyList())
+    val selectedItems: StateFlow<List<CartItem>> = _selectedItems
+
+    fun setSelectedItems(items: List<CartItem>) {
+        _selectedItems.value = items
+    }
+
+    fun clearSelectedItems() {
+        _selectedItems.value = emptyList()
+    }
+
     // Add item or increase quantity
     fun addToCart(product: Product, quantity: Int = 1) {
         val currentList = _cartItems.value.toMutableList()

@@ -11,14 +11,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.ecommerceapp.viewmodel.CartItem
 
 // Data class to represent a CartItem
-data class CartItem(
-    val id: Int,
-    val name: String,
-    val price: Double,
-    val quantity: Int
-)
+//data class CartItem(
+//    val id: Int,
+//    val name: String,
+//    val price: Double,
+//    val quantity: Int
+//)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,7 +28,7 @@ fun CheckoutPage(navController: NavController, selectedItems: List<CartItem>) {
     var coupon by remember { mutableStateOf("") }
 
     // Calculate Subtotal, Shipping Fee, and Final Price
-    val subtotal = selectedItems.sumOf { it.price * it.quantity }
+    val subtotal = selectedItems.sumOf { it.product.price * it.quantity }
     val shippingFee = 5.0 // This can be dynamic based on address or shipping method
     val finalPrice = subtotal + shippingFee
 
@@ -61,7 +62,7 @@ fun CheckoutPage(navController: NavController, selectedItems: List<CartItem>) {
                 Column(Modifier.padding(12.dp)) {
                     Text("Selected Items", fontWeight = FontWeight.Bold)
                     selectedItems.forEach { item ->
-                        Text("${item.name} x${item.quantity} - $${"%.2f".format(item.price * item.quantity)}")
+                        Text("${item.product.title} x${item.quantity} - $${"%.2f".format(item.product.price * item.quantity)}")
                     }
                 }
             }

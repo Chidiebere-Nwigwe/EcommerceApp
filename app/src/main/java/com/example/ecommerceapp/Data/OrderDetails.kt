@@ -1,6 +1,5 @@
 package com.example.ecommerceapp.model
 
-import CartItem
 
 data class OrderDetails(
     val items: List<CartItem>,
