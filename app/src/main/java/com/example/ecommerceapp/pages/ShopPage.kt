@@ -126,7 +126,10 @@ fun ShopPage(
                                 coroutineScope.launch {
                                     snackbarHostState.showSnackbar("${product.title} added to cart")
                                 }
-                            }
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp) //Reduce card size
                         )
                     }
                 }

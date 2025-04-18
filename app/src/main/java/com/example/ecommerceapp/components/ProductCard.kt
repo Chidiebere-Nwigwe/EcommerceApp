@@ -24,7 +24,9 @@ fun ProductCard(
     isFavorite: Boolean = false,
     onClick: () -> Unit,
     onToggleFavorite: () -> Unit = {},
-    onAddToCart: () -> Unit = {}
+    onAddToCart: () -> Unit = {},
+    modifier: Modifier
+
 ) {
     Card(
         modifier = Modifier

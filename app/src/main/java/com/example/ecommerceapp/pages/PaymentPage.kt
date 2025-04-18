@@ -20,7 +20,7 @@ import androidx.navigation.NavController
 fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: String, address : String) {
     var selectedOption by remember { mutableStateOf("Visa") }
     var updatedFinalPrice = finalPrice;
-    if(coupon=="GARY2025"){
+    if(coupon=="GARY2025" || coupon=="CHIDI2025" || coupon=="ANTHONY2025"){
         updatedFinalPrice -= 5;
     }
     var address = address;
@@ -126,12 +126,12 @@ fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: Strin
                     }
                 }
             }
-            OutlinedButton(
-                onClick = { /* Add new card logic */ },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Add new Card")
-            }
+//            OutlinedButton(
+//                onClick = { /* Add new card logic */ },
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
+//                Text("Add new Card")
+//            }
         }
     }
 }
