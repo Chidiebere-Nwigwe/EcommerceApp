@@ -1,8 +1,10 @@
 package com.example.ecommerceapp.pages
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -10,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -95,16 +99,32 @@ fun NotificationPage(
             }
 
             // Bottom Button to go Home
-            Button(
-                onClick = {
-                    selectedTab.value = 0 // optional, in case tab switch matters
-                    navController.navigate("home")
-                },
+            val shape = RoundedCornerShape(12.dp)
+
+            Box(
                 modifier = Modifier
+//                    .padding(horizontal = 16.dp, vertical = 8.dp)
                     .fillMaxWidth()
-                    .padding(top = 24.dp)
+                    .height(65.dp)
+                    .clip(shape)
+                    .background(
+                        brush = Brush.linearGradient(
+                            colors = listOf(Color(0xFFF3AD9D), Color(0xFF8D645B))
+                        )
+                    )
             ) {
-                Text("Back to Home")
+                Button(
+                    onClick = {
+                        selectedTab.value = 0
+                        navController.navigate("home")
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    modifier = Modifier.fillMaxSize(),
+                    shape = shape,
+                    contentPadding = PaddingValues()
+                ) {
+                    Text("Back to Home", color = Color.White)
+                }
             }
         }
     }

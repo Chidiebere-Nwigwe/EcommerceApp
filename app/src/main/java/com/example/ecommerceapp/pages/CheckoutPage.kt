@@ -1,13 +1,17 @@
 
 package com.example.ecommerceapp.pages
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -37,19 +41,39 @@ fun CheckoutPage(navController: NavController, cartViewModel: CartViewModel) {
             )
         },
         bottomBar = {
-            Button(
-//                onClick = { navController.navigate("payment") },
-//                onClick = {  navController.navigate("payment?finalPrice=${finalPrice}&coupon=${coupon}")
-                onClick = {  navController.navigate("payment?finalPrice=${finalPrice}&coupon=${coupon}&address=${address}")
+            val shape = RoundedCornerShape(12.dp)
 
-                },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth()
-            ) {
-                Text("Continue to Checkout")
+            Column {
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .fillMaxWidth()
+                        .height(65.dp)
+                        .clip(shape)
+                        .background(
+                            brush = Brush.linearGradient(
+                                colors = listOf(Color(0xFFF3AD9D), Color(0xFF8D645B))
+                            )
+                        )
+                ) {
+                    Button(
+                        onClick = {
+                            navController.navigate("payment?finalPrice=${finalPrice}&coupon=${coupon}&address=${address}")
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                        modifier = Modifier.fillMaxSize(),
+                        shape = shape,
+                        contentPadding = PaddingValues()
+                    ) {
+                        Text("Continue to Checkout", color = Color.White)
+                    }
+                }
+
+                // You can increases the space under button
+                Spacer(modifier = Modifier.height(50.dp))
             }
         }
+
     ) { padding ->
         Column(
             modifier = Modifier
@@ -62,7 +86,11 @@ fun CheckoutPage(navController: NavController, cartViewModel: CartViewModel) {
                 value = address,
                 onValueChange = { address = it },
                 label = { Text("Choose Address") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Color(0xFF815D55),
+                    unfocusedBorderColor = Color(0xFF815D55)
+                )
             )
 
             Card(modifier = Modifier.fillMaxWidth()) {
@@ -72,22 +100,26 @@ fun CheckoutPage(navController: NavController, cartViewModel: CartViewModel) {
                 }
             }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text("Choose Shipping")
-                TextButton(onClick = { /* Edit shipping method */ }) {
-                    Text("Edit")
-                }
-            }
+//            Row(
+//                modifier = Modifier.fillMaxWidth(),
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                Text("Choose Shipping")
+//                TextButton(onClick = { /* Edit shipping method */ }) {
+//                    Text("Edit")
+//                }
+//            }
 
             OutlinedTextField(
                 value = coupon,
                 onValueChange = { coupon = it },
                 label = { Text("Apply Coupon") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Color(0xFF815D55),
+                    unfocusedBorderColor = Color(0xFF815D55)
+                )
             )
 
             Column(modifier = Modifier.fillMaxWidth()) {

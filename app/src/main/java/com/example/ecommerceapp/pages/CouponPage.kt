@@ -55,7 +55,7 @@ fun CouponPage(modifier: Modifier = Modifier, navController: NavController) {
             ) {
 
                 Row(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(25.dp)
                 ) {
                     Box(
                         modifier = Modifier
@@ -112,7 +112,7 @@ fun CouponPage(modifier: Modifier = Modifier, navController: NavController) {
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Row(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(25.dp)
                 ) {
                     Box(
                         modifier = Modifier
@@ -169,7 +169,7 @@ fun CouponPage(modifier: Modifier = Modifier, navController: NavController) {
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Row(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(25.dp)
                 ) {
                     Box(
                         modifier = Modifier

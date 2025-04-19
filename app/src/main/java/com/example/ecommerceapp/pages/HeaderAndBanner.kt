@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.ShoppingBag
+import androidx.compose.material.icons.filled.ShoppingBasket
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -112,13 +114,13 @@ fun HeaderAndBanner(modifier: Modifier = Modifier, navController: NavController,
 //                }
                 IconButton(onClick = { navController.navigate("cart") }) {
                     GradientIcon(
-                        imageVector = Icons.Default.ShoppingCart,
+                        imageVector = Icons.Default.ShoppingBasket,
                         contentDescription = "Go to Cart",
                         gradientColors = listOf(
                             Color(0xFFF0AA9B),
                             Color(0xFF8A6259)
                         ),
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(27.dp)
                     )
                 }
             }
@@ -202,7 +204,7 @@ fun GradientIcon(
                     )
                 }
             },
-        tint = Color.White // base color so gradient blends properly
+        tint = Color.White
     )
 }
 
