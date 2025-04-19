@@ -40,7 +40,7 @@ fun ProductCard(
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
 
-            // 🖼 Product Image + Text wrapped in clickable
+            // Product Image + Text wrapped in clickable
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -66,7 +66,7 @@ fun ProductCard(
 
             Spacer(modifier = Modifier.height(6.dp))
 
-            // ❤️ 🛒 Favorite + Cart Icons
+            //Favorite + Cart Icons
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
@@ -79,10 +79,7 @@ fun ProductCard(
                     )
                 }
                 IconButton(onClick = onAddToCart) {
-//                    Icon(
-//                        imageVector = Icons.Outlined.ShoppingCart,
-//                        contentDescription = "Add to Cart"
-//                    )
+
                     GradientIcon(
                         imageVector = Icons.Default.ShoppingCart,
                         contentDescription = "Go to Cart",

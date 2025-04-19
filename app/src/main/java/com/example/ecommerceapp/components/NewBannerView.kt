@@ -17,7 +17,7 @@ fun NewBannerView(
     modifier: Modifier = Modifier
 ) {
     Image(
-        painter = painterResource(id = R.drawable.group_93), // Replace with your drawable name
+        painter = painterResource(id = R.drawable.group_93),
         contentDescription = "Banner Image",
         contentScale = ContentScale.Crop,
         modifier = Modifier

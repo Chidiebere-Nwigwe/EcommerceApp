@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ShoppingBasket
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 
@@ -46,18 +47,7 @@ fun ShopPage(
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
-//    Column(modifier = Modifier.fillMaxSize()) {
-//
-//        // 🖼️ Logo at the top of the page
-//        Image(
-//            painter = painterResource(id = R.drawable.group_94), // Replace with your actual logo resource
-//            contentDescription = "Logo",
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(80.dp) // Adjust the height as needed
-//                .padding(top = 16.dp)
-//        )
-//    }
+
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
@@ -66,7 +56,7 @@ fun ShopPage(
                 actions = {
                     IconButton(onClick = { navController.navigate("cart") }) {
                         GradientIcon(
-                            imageVector = Icons.Default.ShoppingCart,
+                            imageVector = Icons.Default.ShoppingBasket,
                             contentDescription = "Go to Cart",
                             gradientColors = listOf(
                                 Color(0xFFF0AA9B),
@@ -99,7 +89,7 @@ fun ShopPage(
                 painter = painterResource(R.drawable.group_94),
                 contentDescription = "Logo"
             )
-            // 🔍 Search Bar
+            // Search Bar
             OutlinedTextField(
                 value = searchText,
                 onValueChange = {
@@ -112,7 +102,7 @@ fun ShopPage(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // 🧰 Category Filter
+            // Category Filter
             val categories = listOf("All", "men's clothing", "jewelery", "electronics", "women's clothing")
             LazyRow {
                 items(categories.size) { index ->
@@ -127,7 +117,7 @@ fun ShopPage(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // 🧱 Product Grid (2 columns)
+            // Product Grid (2 columns)
             if (products.isEmpty()) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()

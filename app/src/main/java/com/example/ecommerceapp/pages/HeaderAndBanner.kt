@@ -97,21 +97,9 @@ fun HeaderAndBanner(modifier: Modifier = Modifier, navController: NavController,
                 )
             }
             Row {
-//                IconButton(onClick = {  selectedTab.value = 1  } ) {
-//                IconButton(onClick = {  navController.navigate("notification") } ) {
-//
-//                Icon(
-                //                imageVector = Icons.Default.Notifications,
-                //                contentDescription = "Notification")
-//                }
+
                 Spacer(modifier = Modifier.width(8.dp))
 
-//                IconButton(onClick = { navController.navigate("cart") }) {
-//                    Icon(
-//                        imageVector = Icons.Default.ShoppingCart,
-//                        contentDescription = "Go to Cart",
-//                    )
-//                }
                 IconButton(onClick = { navController.navigate("cart") }) {
                     GradientIcon(
                         imageVector = Icons.Default.ShoppingBasket,
@@ -170,8 +158,8 @@ fun HeaderAndBanner(modifier: Modifier = Modifier, navController: NavController,
                     shape = RoundedCornerShape(50),
                     contentPadding = PaddingValues(horizontal = 30.dp, vertical = 8.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFFFFFF),        // Background color
-                        contentColor = Color.Black                 // Text/Icon color
+                        containerColor = Color(0xFFFFFFFF),// Background color
+                        contentColor = Color.Black// Text/Icon color
 
                     )
                 ) {
@@ -193,7 +181,7 @@ fun GradientIcon(
         imageVector = imageVector,
         contentDescription = contentDescription,
         modifier = modifier
-            .graphicsLayer(alpha = 0.99f) // needed to make drawWithCache work right
+            .graphicsLayer(alpha = 0.99f)
             .drawWithCache {
                 val brush = Brush.linearGradient(gradientColors)
                 onDrawWithContent {

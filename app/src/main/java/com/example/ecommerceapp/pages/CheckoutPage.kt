@@ -100,16 +100,6 @@ fun CheckoutPage(navController: NavController, cartViewModel: CartViewModel) {
                 }
             }
 
-//            Row(
-//                modifier = Modifier.fillMaxWidth(),
-//                horizontalArrangement = Arrangement.SpaceBetween,
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                Text("Choose Shipping")
-//                TextButton(onClick = { /* Edit shipping method */ }) {
-//                    Text("Edit")
-//                }
-//            }
 
             OutlinedTextField(
                 value = coupon,
