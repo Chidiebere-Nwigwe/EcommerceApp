@@ -70,4 +70,9 @@ class CartViewModel : ViewModel() {
     fun getTotalPrice(): Double {
         return _cartItems.value.sumOf { it.product.price * it.quantity }
     }
+
+    // Clear entire cart
+    fun clearCart() {
+        _cartItems.value = emptyList()
+    }
 }

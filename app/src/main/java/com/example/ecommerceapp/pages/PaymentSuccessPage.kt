@@ -15,10 +15,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.ecommerceapp.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PaymentSuccessPage(navController: NavController, finalPrice : String, address: String) {
+fun PaymentSuccessPage(navController: NavController, finalPrice : String, address: String, cartViewModel: CartViewModel) {
     var address = address
     Scaffold(
 //        topBar = {
@@ -53,7 +54,11 @@ fun PaymentSuccessPage(navController: NavController, finalPrice : String, addres
                         )
                 ) {
                     Button(
+//                        onClick = {
+//                            navController.navigate("notification?finalPrice=${finalPrice}&address=${address}")
+//                        },
                         onClick = {
+                            cartViewModel.clearCart() // Clear the cart first ✅,
                             navController.navigate("notification?finalPrice=${finalPrice}&address=${address}")
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),

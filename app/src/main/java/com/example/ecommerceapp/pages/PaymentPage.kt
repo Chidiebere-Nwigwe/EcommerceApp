@@ -19,16 +19,17 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.ecommerceapp.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: String, address : String) {
+fun PaymentPage(navController: NavController, finalPrice: Double, coupon: String, address: String, cartViewModel: CartViewModel) {
     var selectedOption by remember { mutableStateOf("Visa") }
-    var updatedFinalPrice = finalPrice;
-    if(coupon=="GARY2025" || coupon=="CHIDI2025" || coupon=="ANTHONY2025"){
-        updatedFinalPrice -= 5;
+    var updatedFinalPrice = finalPrice
+    if (coupon == "GARY2025" || coupon == "CHIDI2025" || coupon == "ANTHONY2025") {
+        updatedFinalPrice -= 5
     }
-    var address = address;
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -42,27 +43,18 @@ fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: Strin
         },
         bottomBar = {
             Column {
-                Column(Modifier.padding(16.dp)
-                    ) {
+                Column(Modifier.padding(16.dp)) {
                     Text("Payment Summary", style = MaterialTheme.typography.titleMedium)
                     Spacer(modifier = Modifier.height(8.dp))
-                    Row(
-                        Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text("Final Price")
-             //          Spacer(modifier = Modifier.weight(0.5f))
                         Text(
-                            finalPrice.toString(),
-                            style = TextStyle(
-                                color = Color.DarkGray, // Set the color to dark gray
-                                textDecoration = TextDecoration.LineThrough // Apply the strikethrough effect
-                            ),
+                            "$${"%.2f".format(finalPrice)}",
+                            style = TextStyle(color = Color.DarkGray, textDecoration = TextDecoration.LineThrough),
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
-
-                        Text(updatedFinalPrice.toString(), fontWeight = FontWeight.Bold)
+                        Text("$${"%.2f".format(updatedFinalPrice)}", fontWeight = FontWeight.Bold)
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     val shape = RoundedCornerShape(12.dp)
@@ -118,6 +110,7 @@ fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: Strin
 //                }
             }
         }
+
     ) { padding ->
         Column(
             modifier = Modifier
