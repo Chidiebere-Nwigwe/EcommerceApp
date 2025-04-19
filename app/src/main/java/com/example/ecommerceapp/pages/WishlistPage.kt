@@ -75,11 +75,13 @@ fun WishlistPage(
                                 Text(product.title, style = MaterialTheme.typography.titleSmall)
                                 Text("$${product.price}", color = MaterialTheme.colorScheme.primary)
                             }
-                            Icon(
-                                imageVector = Icons.Default.Favorite,
-                                contentDescription = "Favorite",
-                                tint = MaterialTheme.colorScheme.primary
-                            )
+                            IconButton(onClick = { viewModel.toggleFavorite(product.id) }) {
+                                Icon(
+                                    imageVector = Icons.Default.Favorite,
+                                    contentDescription = "Remove from favorites",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
                         }
                     }
                 }
