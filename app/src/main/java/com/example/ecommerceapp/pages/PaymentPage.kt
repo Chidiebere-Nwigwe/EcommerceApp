@@ -14,16 +14,17 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.ecommerceapp.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: String, address : String) {
+fun PaymentPage(navController: NavController, finalPrice: Double, coupon: String, address: String, cartViewModel: CartViewModel) {
     var selectedOption by remember { mutableStateOf("Visa") }
-    var updatedFinalPrice = finalPrice;
-    if(coupon=="GARY2025" || coupon=="CHIDI2025" || coupon=="ANTHONY2025"){
-        updatedFinalPrice -= 5;
+    var updatedFinalPrice = finalPrice
+    if (coupon == "GARY2025" || coupon == "CHIDI2025" || coupon == "ANTHONY2025") {
+        updatedFinalPrice -= 5
     }
-    var address = address;
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -37,61 +38,32 @@ fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: Strin
         },
         bottomBar = {
             Column {
-                Column(Modifier.padding(16.dp)
-                    ) {
+                Column(Modifier.padding(16.dp)) {
                     Text("Payment Summary", style = MaterialTheme.typography.titleMedium)
                     Spacer(modifier = Modifier.height(8.dp))
-                    Row(
-                        Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text("Final Price")
-             //          Spacer(modifier = Modifier.weight(0.5f))
                         Text(
-                            finalPrice.toString(),
-                            style = TextStyle(
-                                color = Color.DarkGray, // Set the color to dark gray
-                                textDecoration = TextDecoration.LineThrough // Apply the strikethrough effect
-                            ),
+                            "$${"%.2f".format(finalPrice)}",
+                            style = TextStyle(color = Color.DarkGray, textDecoration = TextDecoration.LineThrough),
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
-
-                        Text(updatedFinalPrice.toString(), fontWeight = FontWeight.Bold)
+                        Text("$${"%.2f".format(updatedFinalPrice)}", fontWeight = FontWeight.Bold)
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
-
-//                        onClick = { navController.navigate("payment_success") },
-                       onClick = { navController.navigate("payment_success?updatedFinalPrice=${updatedFinalPrice}&address=${address}") },
-
+                        onClick = {
+                            navController.navigate("payment_success?updatedFinalPrice=${updatedFinalPrice}&address=${address}")
+                        },
                         modifier = Modifier
-                                .fillMaxWidth()
+                            .fillMaxWidth()
                             .height(70.dp)
                             .padding(bottom = 15.dp)
                     ) {
                         Text("Pay Now")
                     }
                 }
-
-//                NavigationBar {
-//                    val items = listOf(
-//                        "home" to Icons.Default.Home,
-//                        "shop" to Icons.Default.ShoppingCart,
-//                        "coupon" to Icons.Default.Star,
-//                        "wishlist" to Icons.Default.Favorite,
-//                        "profile" to Icons.Default.Person
-//                    )
-//
-//                    items.forEach { (route, icon) ->
-//                        NavigationBarItem(
-//                            icon = { Icon(icon, contentDescription = route) },
-//                            label = { Text(route.capitalize()) },
-//                            selected = false,
-//                            onClick = { navController.navigate(route) }
-//                        )
-//                    }
-//                }
             }
         }
     ) { padding ->
@@ -119,19 +91,10 @@ fun PaymentPage(navController: NavController,  finalPrice: Double, coupon: Strin
                     ) {
                         Icon(Icons.Default.CreditCard, method)
                         Text(method, Modifier.weight(1f))
-                        RadioButton(
-                            selected = selectedOption == method,
-                            onClick = { selectedOption = method }
-                        )
+                        RadioButton(selected = selectedOption == method, onClick = { selectedOption = method })
                     }
                 }
             }
-//            OutlinedButton(
-//                onClick = { /* Add new card logic */ },
-//                modifier = Modifier.fillMaxWidth()
-//            ) {
-//                Text("Add new Card")
-//            }
         }
     }
 }

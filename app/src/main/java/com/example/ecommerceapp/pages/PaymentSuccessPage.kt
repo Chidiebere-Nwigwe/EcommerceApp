@@ -2,67 +2,46 @@ package com.example.ecommerceapp.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.ecommerceapp.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PaymentSuccessPage(navController: NavController, finalPrice : String, address: String) {
-    var address = address
-    Scaffold(
-//        topBar = {
-//            TopAppBar(
-//                title = { Text("Payment Success") },
-//                navigationIcon = {
-//                    IconButton(onClick = { navController.navigate("home") }) {
-//                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-//                    }
-//                }
-//            )
-//        },
-        bottomBar = {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Button(
+fun PaymentSuccessPage(
+    navController: NavController,
+    finalPrice: String,
+    address: String,
+    cartViewModel: CartViewModel
+) {
+    // Clear the cart when the screen is shown
+    LaunchedEffect(Unit) {
+        cartViewModel.clearCart()
+    }
 
-                    onClick = { navController.navigate("notification?finalPrice=${finalPrice}&address=${address}") },
+    Scaffold(
+        bottomBar = {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Button(
+                    onClick = {
+                        cartViewModel.clearCart() // Clear the cart first ✅,
+                        navController.navigate("notification?finalPrice=${finalPrice}&address=${address}")
+                    },
                     modifier = Modifier
-                            .fillMaxWidth()
-//                        .height(70.dp)
+                        .fillMaxWidth()
                         .padding(bottom = 30.dp)
                 ) {
                     Text(text = "Continue")
                 }
-
-//                NavigationBar {
-//                    val items = listOf(
-//                        "home" to Icons.Default.Home,
-//                        "shop" to Icons.Default.ShoppingCart,
-//                        "coupon" to Icons.Default.Star,
-//                        "wishlist" to Icons.Default.Favorite,
-//                        "profile" to Icons.Default.Person
-//                    )
-//
-//                    items.forEach { (route, icon) ->
-//                        NavigationBarItem(
-//                            icon = { Icon(icon, contentDescription = route) },
-//                            label = { Text(route.replaceFirstChar { it.uppercase() }) },
-//                            selected = false,
-//                            onClick = { navController.navigate(route) }
-//                        )
-//                    }
-//                }
             }
         }
-
     ) { padding ->
         Column(
             modifier = Modifier
