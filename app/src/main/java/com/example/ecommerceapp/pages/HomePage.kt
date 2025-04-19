@@ -26,6 +26,7 @@ import com.example.ecommerceapp.components.HeaderView
 import com.example.ecommerceapp.components.ProductCard
 import com.example.ecommerceapp.viewmodel.CartViewModel
 import com.example.ecommerceapp.viewmodel.ShopSecViewModel
+import com.example.ecommerceapp.viewmodel.ShopViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -34,7 +35,7 @@ fun HomePage(
     navController: NavController,
     selectedTab: MutableState<Int>
 ) {
-    val viewModel: ShopSecViewModel = viewModel()
+    val viewModel: ShopViewModel = viewModel()
     val products by viewModel.filteredProducts.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
     val cartViewModel: CartViewModel = viewModel()
