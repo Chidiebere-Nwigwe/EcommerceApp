@@ -131,7 +131,7 @@ fun SignupScreen(modifier: Modifier = Modifier, authViewModel: AuthViewModel = v
                     }
                 }
             },
-            enabled = isLoading,
+            enabled = !isLoading,
             modifier = Modifier.fillMaxWidth()
                 .height(60.dp)
         ){
