@@ -119,8 +119,8 @@ fun HomePage(
                             }
                         },
                         modifier = Modifier
-                            .width(110.dp)   // Same width as in 3-column grid
-                            .height(200.dp)  // Same height as in 3-column grid
+                            .width(110.dp)
+                            .height(200.dp)
                     )
                 }
             }

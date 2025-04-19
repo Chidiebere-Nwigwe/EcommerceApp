@@ -61,10 +61,8 @@ fun PaymentPage(navController: NavController, finalPrice: Double, coupon: String
 
                     Box(
                         modifier = Modifier
-//                            .padding(horizontal = 16.dp, vertical = 8.dp)
                             .fillMaxWidth()
                             .height(65.dp)
-//                            .padding(bottom = 15.dp)
                             .clip(shape)
                             .background(
                                 brush = Brush.linearGradient(
@@ -85,29 +83,9 @@ fun PaymentPage(navController: NavController, finalPrice: Double, coupon: String
                         }
 //                        Spacer(modifier = Modifier.height(20.dp))
                     }
-                    // You can increases the space under button
                     Spacer(modifier = Modifier.height(45.dp))
-//                    Spacer(modifier = Modifier.height(50.dp))
                 }
 
-//                NavigationBar {
-//                    val items = listOf(
-//                        "home" to Icons.Default.Home,
-//                        "shop" to Icons.Default.ShoppingCart,
-//                        "coupon" to Icons.Default.Star,
-//                        "wishlist" to Icons.Default.Favorite,
-//                        "profile" to Icons.Default.Person
-//                    )
-//
-//                    items.forEach { (route, icon) ->
-//                        NavigationBarItem(
-//                            icon = { Icon(icon, contentDescription = route) },
-//                            label = { Text(route.capitalize()) },
-//                            selected = false,
-//                            onClick = { navController.navigate(route) }
-//                        )
-//                    }
-//                }
             }
         }
 
@@ -160,12 +138,7 @@ fun PaymentPage(navController: NavController, finalPrice: Double, coupon: String
                     }
                 }
             }
-//            OutlinedButton(
-//                onClick = { /* Add new card logic */ },
-//                modifier = Modifier.fillMaxWidth()
-//            ) {
-//                Text("Add new Card")
-//            }
+
         }
     }
 }

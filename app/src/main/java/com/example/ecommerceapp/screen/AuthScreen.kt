@@ -116,11 +116,6 @@ fun AuthScreen(modifier: Modifier = Modifier, navController: NavHostController){
                         Text(
                             text = "Login",
                             fontSize = 22.sp,
-//                            style = TextStyle.Default.copy(
-//                                brush = Brush.horizontalGradient(
-//                                    colors = listOf(Color(0xFFF3AD9D), Color(0xFF8D645B))
-//                                )
-//                            )
                         )
                     }
                 }
@@ -141,7 +136,7 @@ fun AuthScreen(modifier: Modifier = Modifier, navController: NavHostController){
                     ),
                     shape = RoundedCornerShape(12.dp)
                 )
-                .padding(2.dp) // Border thickness
+                .padding(2.dp)
         ) {
             Box(
                 modifier = Modifier
@@ -166,11 +161,6 @@ fun AuthScreen(modifier: Modifier = Modifier, navController: NavHostController){
                     Text(
                         text = "Signup",
                         fontSize = 22.sp,
-//                        style = TextStyle.Default.copy(
-//                            brush = Brush.horizontalGradient(
-//                                colors = listOf(Color(0xFFF3AD9D), Color(0xFF8D645B))
-//                            )
-//                        )
                     )
                 }
             }

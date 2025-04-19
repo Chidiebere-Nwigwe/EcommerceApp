@@ -40,7 +40,6 @@ fun CouponPage(modifier: Modifier = Modifier, navController: NavController) {
             CenterAlignedTopAppBar(
                 title = { Text(text = "Coupon Page") },
                 navigationIcon = {
-//                    IconButton(onClick = { navController.popBackStack() }) {
                     IconButton(onClick = { navController.navigate("cart") }) {
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
                     }
@@ -141,8 +140,8 @@ fun CouponPage(modifier: Modifier = Modifier, navController: NavController) {
                             )
                     ) {
                         Column(
-                            modifier = Modifier.padding(10.dp), // Padding for the whole column inside the box
-                            verticalArrangement = Arrangement.spacedBy(4.dp) // Control space between text elements
+                            modifier = Modifier.padding(10.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Text(
                                 text = "CHIDI2025",
@@ -198,8 +197,8 @@ fun CouponPage(modifier: Modifier = Modifier, navController: NavController) {
                             )
                     ) {
                         Column(
-                            modifier = Modifier.padding(10.dp), // Padding for the whole column inside the box
-                            verticalArrangement = Arrangement.spacedBy(4.dp) // Control space between text elements
+                            modifier = Modifier.padding(10.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Text(
                                 text = "GARY2025",

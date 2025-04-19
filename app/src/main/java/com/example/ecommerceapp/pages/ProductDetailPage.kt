@@ -33,16 +33,13 @@ fun ProductDetailPage(
     var quantity by remember { mutableStateOf(1) }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
-//    Column(){
-//
-//    }
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(text = product.title, maxLines = 1) },
                 navigationIcon = {
-//                    IconButton(onClick = { navController.popBackStack() }) {
                     IconButton(onClick = { navController.navigate("shop") }) {
 
                     Icon(
@@ -105,7 +102,7 @@ fun ProductDetailPage(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // 🔢 Quantity Selector
+            // Quantity Selector
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -126,7 +123,7 @@ fun ProductDetailPage(
                 }
             }
 
-            // 🛒 Add to Cart
+            // Add to Cart
             Button(
                 onClick = {
                     cartViewModel.addToCart(product, quantity)

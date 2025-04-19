@@ -40,19 +40,6 @@ fun HomeScreen(
 
 
     Scaffold(
-//        topBar = {
-//            TopAppBar(
-//                title = { Text("Welcome Back") },
-//                actions = {
-//                    IconButton(onClick = { navController.navigate("cart") }) {
-//                        Icon(
-//                            imageVector = Icons.Default.ShoppingCart,
-//                            contentDescription = "Go to Cart"
-//                        )
-//                    }
-//                }
-//            )
-//        },
 
         bottomBar = {
             NavigationBar {
@@ -76,14 +63,7 @@ fun HomeScreen(
                             unselectedTextColor = Color.Black
                         )
                     )
-//                    NavigationBarItem(
-////                        selected = index == selectedTab.value,
-////                        onClick = { selectedTab.value = index },
-//                        selected = index == selected,
-//                        onClick = { selected = index },
-//                        icon = { Icon(navItem.icon, navItem.label) },
-//                        label = { Text(navItem.label) }
-//                    )
+
                 }
             }
         }

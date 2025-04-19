@@ -22,16 +22,6 @@ import com.example.ecommerceapp.viewmodel.CartViewModel
 fun PaymentSuccessPage(navController: NavController, finalPrice : String, address: String, cartViewModel: CartViewModel) {
     var address = address
     Scaffold(
-//        topBar = {
-//            TopAppBar(
-//                title = { Text("Payment Success") },
-//                navigationIcon = {
-//                    IconButton(onClick = { navController.navigate("home") }) {
-//                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-//                    }
-//                }
-//            )
-//        },
         bottomBar = {
             Column(
                 modifier = Modifier.fillMaxWidth()
@@ -43,9 +33,6 @@ fun PaymentSuccessPage(navController: NavController, finalPrice : String, addres
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                         .fillMaxWidth()
                         .height(65.dp)
-//                        .fillMaxWidth()
-//                        .height(70.dp) // increases height of button
-//                        .padding(bottom = 15.dp)
                         .clip(shape)
                         .background(
                             brush = Brush.linearGradient(
@@ -54,9 +41,6 @@ fun PaymentSuccessPage(navController: NavController, finalPrice : String, addres
                         )
                 ) {
                     Button(
-//                        onClick = {
-//                            navController.navigate("notification?finalPrice=${finalPrice}&address=${address}")
-//                        },
                         onClick = {
                             cartViewModel.clearCart() // Clear the cart first ✅,
                             navController.navigate("notification?finalPrice=${finalPrice}&address=${address}")
@@ -70,25 +54,6 @@ fun PaymentSuccessPage(navController: NavController, finalPrice : String, addres
                     }
                 }
                 Spacer(modifier = Modifier.height(50.dp))
-
-//                NavigationBar {
-//                    val items = listOf(
-//                        "home" to Icons.Default.Home,
-//                        "shop" to Icons.Default.ShoppingCart,
-//                        "coupon" to Icons.Default.Star,
-//                        "wishlist" to Icons.Default.Favorite,
-//                        "profile" to Icons.Default.Person
-//                    )
-//
-//                    items.forEach { (route, icon) ->
-//                        NavigationBarItem(
-//                            icon = { Icon(icon, contentDescription = route) },
-//                            label = { Text(route.replaceFirstChar { it.uppercase() }) },
-//                            selected = false,
-//                            onClick = { navController.navigate(route) }
-//                        )
-//                    }
-//                }
             }
         }
 
