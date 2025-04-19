@@ -1,15 +1,19 @@
 package com.example.ecommerceapp.pages
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -42,70 +46,55 @@ fun CartPage(
             TopAppBar(
                 title = { Text("My Cart") },
                 navigationIcon = {
-//                    IconButton(onClick = { navController.popBackStack() }) {
                     IconButton(onClick = { navController.navigate("shop") }) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
         },
         bottomBar = {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text("Total", style = MaterialTheme.typography.titleMedium)
-                    Text("$${"%.2f".format(totalPrice)}", style = MaterialTheme.typography.titleMedium)
+            Column {
+                // Checkout + Total Section
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("Total", style = MaterialTheme.typography.titleMedium)
+                        Text("$${"%.2f".format(totalPrice)}", style = MaterialTheme.typography.titleMedium)
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    val shape = RoundedCornerShape(12.dp)
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp)
+                            .clip(shape)
+                            .background(
+                                brush = Brush.linearGradient(
+                                    colors = listOf(Color(0xFFF3AD9D), Color(0xFF8D645B))
+                                )
+                            )
+                    ) {
+                        Button(
+                            onClick = { navController.navigate("checkout") },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                            modifier = Modifier.fillMaxSize(),
+                            shape = shape,
+                            contentPadding = PaddingValues()
+                        ) {
+                            Text("Checkout", color = Color.White)
+                        }
+                    }
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Button(
-                    onClick = { navController.navigate("checkout") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp)
+                // Navigation Bar Section (FULL WIDTH)
+                NavigationBar(
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Checkout")
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-//                NavigationBar {
-//                    NavigationBarItem(
-//                        selected = false,
-//                        onClick = { navController.navigate("home") },
-//                        icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-//                        label = { Text("Home") }
-//                    )
-//                    NavigationBarItem(
-//                        selected = true,
-//                        onClick = { navController.navigate("shop") },
-//                        icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Shop") },
-//                        label = { Text("Shop") }
-//                    )
-//                    NavigationBarItem(
-//                        selected = false,
-//                        onClick = { /* TODO */ },
-//                        icon = { Icon(Icons.Default.Star, contentDescription = "Coupon") },
-//                        label = { Text("Coupon") }
-//                    )
-//                    NavigationBarItem(
-//                        selected = false,
-//                        onClick = { /* TODO */ },
-//                        icon = { Icon(Icons.Default.Favorite, contentDescription = "Wishlist") },
-//                        label = { Text("Wishlist") }
-//                    )
-//                    NavigationBarItem(
-//                        selected = false,
-//                        onClick = { /* TODO */ },
-//                        icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-//                        label = { Text("Me") }
-//                    )
-//                }
-                NavigationBar {
                     navItemList.forEachIndexed { index, navItem ->
                         NavigationBarItem(
                             selected = index == selected,
@@ -133,7 +122,8 @@ fun CartPage(
                 }
             }
         }
-    ) { padding ->
+    )
+    { padding ->
         LazyColumn(
             modifier = Modifier
                 .padding(padding)

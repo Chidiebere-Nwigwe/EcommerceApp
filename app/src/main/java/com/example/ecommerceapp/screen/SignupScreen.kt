@@ -1,14 +1,19 @@
 package com.example.ecommerceapp.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -64,7 +71,8 @@ fun SignupScreen(modifier: Modifier = Modifier, authViewModel: AuthViewModel = v
             modifier = Modifier.fillMaxWidth(),
             style = TextStyle(
                 fontSize = 22.sp,
-            )
+            ),
+            color = Color.White
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -113,32 +121,49 @@ fun SignupScreen(modifier: Modifier = Modifier, authViewModel: AuthViewModel = v
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(
-            onClick = {
-                isLoading = true
-                authViewModel.signup(email,name,password){success, errorMessage->
-                    if(success){
-                        isLoading = false
-                        navController.navigate("home"){
-                            popUpTo("auth"){
-                                inclusive = true
-                            }
-                        }
-
-                    }else{
-                        isLoading = false
-                        AppUtil.showToast(context, errorMessage?:"Something went wrong")
-                    }
-                }
-            },
-            enabled = isLoading,
-            modifier = Modifier.fillMaxWidth()
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
                 .height(60.dp)
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(Color(0xFFF3AD9D), Color(0xFF8D645B))
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                )
         ){
-            Text(
-                text = if(isLoading) "Creating account" else "Sign Up",
-                fontSize = 22.sp
-            )
+            Button(
+                onClick = {
+                    isLoading = true
+                    authViewModel.signup(email,name,password){success, errorMessage->
+                        if(success){
+                            isLoading = false
+                            navController.navigate("home"){
+                                popUpTo("auth"){
+                                    inclusive = true
+                                }
+                            }
+
+                        }else{
+                            isLoading = false
+                            AppUtil.showToast(context, errorMessage?:"Something went wrong")
+                        }
+                    }
+                },
+                enabled = !isLoading,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent
+                ),
+                shape = RoundedCornerShape(12.dp),
+                contentPadding = PaddingValues()
+            ){
+                Text(
+                    text = if(isLoading) "Creating account" else "Sign Up",
+                    fontSize = 22.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 }

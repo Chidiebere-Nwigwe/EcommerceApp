@@ -1,12 +1,16 @@
 package com.example.ecommerceapp.pages
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,16 +35,36 @@ fun PaymentSuccessPage(navController: NavController, finalPrice : String, addres
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(
+                val shape = RoundedCornerShape(12.dp)
 
-                    onClick = { navController.navigate("notification?finalPrice=${finalPrice}&address=${address}") },
+                Box(
                     modifier = Modifier
-                            .fillMaxWidth()
-//                        .height(70.dp)
-                        .padding(bottom = 30.dp)
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .fillMaxWidth()
+                        .height(65.dp)
+//                        .fillMaxWidth()
+//                        .height(70.dp) // increases height of button
+//                        .padding(bottom = 15.dp)
+                        .clip(shape)
+                        .background(
+                            brush = Brush.linearGradient(
+                                colors = listOf(Color(0xFFF3AD9D), Color(0xFF8D645B))
+                            )
+                        )
                 ) {
-                    Text(text = "Continue")
+                    Button(
+                        onClick = {
+                            navController.navigate("notification?finalPrice=${finalPrice}&address=${address}")
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                        modifier = Modifier.fillMaxSize(),
+                        shape = shape,
+                        contentPadding = PaddingValues()
+                    ) {
+                        Text("Continue", color = Color.White)
+                    }
                 }
+                Spacer(modifier = Modifier.height(50.dp))
 
 //                NavigationBar {
 //                    val items = listOf(
